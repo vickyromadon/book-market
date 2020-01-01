@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const webpack = require('webpack');
 
 /*
  |--------------------------------------------------------------------------
@@ -13,3 +14,8 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
+
+mix
+    .copy('node_modules/jquery-toast-plugin/dist/jquery.toast.min.js', 'public/js/jquery.toast.min.js')
+    .copy('node_modules/lightgallery/dist/js/lightgallery.min.js', 'public/js/lightgallery.min.js')
+    .copy('node_modules/summernote/dist/summernote.js', 'public/js/summernote.js');
