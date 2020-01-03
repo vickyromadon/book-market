@@ -31,6 +31,14 @@
                     </li>
                     @else
                     <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <b style="color:red;">Saldo Rp. {{ number_format(Auth::user()->balance) }}</b>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile.index') }}">Profile</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Keluar</a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -48,7 +56,7 @@
         @yield('slider')
     </header>
 
-    <div class="container">
+    <div class="container" style="min-height:100vh;">
         @yield('header')
 
         @yield('content')
@@ -64,5 +72,4 @@
     <script src="{{ asset('/templates/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     @yield('js')
 </body>
-
 </html>

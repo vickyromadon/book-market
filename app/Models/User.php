@@ -23,4 +23,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Location');
     }
+
+    public function store()
+    {
+        return $this->hasOne('App\Models\Store');
+    }
+
+    public function top_ups()
+    {
+        return $this->hasMany('App\Models\TopUp');
+    }
 }

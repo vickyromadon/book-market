@@ -174,6 +174,11 @@
                             <i class="fa fa-picture-o"></i> <span>Slider</span>
                         </a>
                     </li>
+                    <li class="{{(Request::segment(2) == 'topup') ? "active" : ""}}">
+                        <a href="{{ route('admin.topup.index') }}">
+                            <i class="fa fa-dollar"></i> <span>TopUp Saldo</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

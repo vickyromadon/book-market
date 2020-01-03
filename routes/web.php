@@ -22,10 +22,28 @@ Route::post('register', 'Auth\RegisterController@register');
 // home
 Route::get('/', 'HomeController@index')->name('index');
 
+Route::group(['middleware' => ['auth']], function () {
+    // profile
+    Route::get('profile',           'ProfileController@index')->name('profile.index');
+    Route::post('profile/setting',  'ProfileController@setting')->name('profile.setting');
+    Route::post('profile/password', 'ProfileController@password')->name('profile.password');
+    Route::post('profile/avatar',   'ProfileController@avatar')->name('profile.avatar');
+    Route::post('profile/location', 'ProfileController@location')->name('profile.location');
+    Route::post('profile/balance',  'ProfileController@balance')->name('profile.balance');
+
+});
+
 Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
     Route::group(['middleware' => ['auth']], function () {
         // home
         Route::get('/', 'HomeController@index')->name('index');
+
+        // profile
+        Route::get('profile',           'ProfileController@index')->name('profile.index');
+        Route::post('profile/setting',  'ProfileController@setting')->name('profile.setting');
+        Route::post('profile/password', 'ProfileController@password')->name('profile.password');
+        Route::post('profile/avatar',   'ProfileController@avatar')->name('profile.avatar');
+        Route::post('profile/location',   'ProfileController@location')->name('profile.location');
     });
 });
 
@@ -86,5 +104,13 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
         Route::resource('slider',               'SliderController', ['only' => [
             'update', 'destroy',
         ]]);
+
+        // topup
+        Route::match(['get', 'post'], 'topup',   'TopUpController@index')->name('topup.index');
+        Route::resource('topup',                 'TopUpController', ['only' => [
+            'show'
+        ]]);
+        Route::post('topup/approve',               'TopUpController@approve')->name('topup.approve');
+        Route::post('topup/reject',                'TopUpController@reject')->name('topup.reject');
     });
 });
