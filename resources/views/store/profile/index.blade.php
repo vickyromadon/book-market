@@ -354,6 +354,7 @@
 
     <script src="{{ asset('/templates/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/templates/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('/js/sweetalert.min.js') }}"></script>
 
     <script type="text/javascript">
         jQuery(document).ready(function($){
@@ -374,13 +375,21 @@
 
                     success: function (response) {
                         if (response.success) {
-                            alert(response.message);
+                            swal({
+                                title: "Sukses",
+                                text: response.message,
+                                icon: "success",
+                            });
 
                             setTimeout(function () {
     	                        location.reload();
-    	                    }, 1000);
+    	                    }, 2000);
                         } else {
-                            alert(response.message);
+                            swal({
+                                title: "Gagal",
+                                text: response.message,
+                                icon: "error",
+                            });
                         }
 
                         $('#formSetting')[0].reset();
@@ -408,10 +417,18 @@
                             });
                         }
                         else if (response.status === 400) {
-                            alert(response.responseJSON.message);
+                            swal({
+                                title: "Gagal",
+                                text: response.responseJSON.message,
+                                icon: "error",
+                            });
                         }
                         else {
-                            alert("Whoops, looks like something went wrong.");
+                            swal({
+                                title: "Gagal",
+                                text: "Whoops, looks like something went wrong.",
+                                icon: "error",
+                            });
                         }
                         $('#formSetting button[type=submit]').button('reset');
                     }
@@ -435,13 +452,21 @@
 
                     success: function (response) {
                         if (response.success) {
-                            alert(response.message);
+                            swal({
+                                title: "Sukses",
+                                text: response.message,
+                                icon: "success",
+                            });
 
                             setTimeout(function () {
     	                        location.reload();
-    	                    }, 1000);
+    	                    }, 2000);
                         } else {
-                            alert(response.message);
+                            swal({
+                                title: "Gagal",
+                                text: response.message,
+                                icon: "error",
+                            });
                         }
 
                         $('#formPassword')[0].reset();
@@ -469,10 +494,17 @@
                             });
                         }
                         else if (response.status === 400) {
-                            alert(response.responseJSON.message);
-                        }
-                        else {
-                            alert("Whoops, looks like something went wrong.");
+                            swal({
+                                title: "Gagal",
+                                text: response.responseJSON.message,
+                                icon: "error",
+                            });
+                        }else {
+                            swal({
+                                title: "Gagal",
+                                text: "Whoops, looks like something went wrong.",
+                                icon: "error",
+                            });
                         }
                         $('#formPassword button[type=submit]').button('reset');
                     }
@@ -498,14 +530,22 @@
 
                     success: function (response) {
                         if (response.success) {
-                            alert(response.message);
+                            swal({
+                                title: "Sukses",
+                                text: response.message,
+                                icon: "success",
+                            });
 
                             setTimeout(function () {
                                 location.reload();
-                            }, 1000);
+                            }, 2000);
                         }
                         else{
-                            alert(response.message);
+                            swal({
+                                title: "Gagal",
+                                text: response.message,
+                                icon: "error",
+                            });
                         }
                         $('#formAvatar button[type=submit]').button('reset');
                     },
@@ -523,10 +563,18 @@
                         }
                         else if (response.status === 400) {
                             // Bad Client Request
-                            alert(response.responseJSON.message);
+                            swal({
+                                title: "Gagal",
+                                text: response.responseJSON.message,
+                                icon: "error",
+                            });
                         }
                         else {
-                            alert("Whoops, looks like something went wrong.");
+                            swal({
+                                title: "Gagal",
+                                text: "Whoops, looks like something went wrong.",
+                                icon: "error",
+                            });
                         }
                         $('#formAvatar button[type=submit]').button('reset');
                     }
@@ -607,13 +655,21 @@
 
                     success: function (response) {
                         if (response.success) {
-                            alert(response.message);
+                            swal({
+                                title: "Sukses",
+                                text: response.message,
+                                icon: "success",
+                            });
 
                             setTimeout(function () {
     	                        location.reload();
-    	                    }, 1000);
+    	                    }, 2000);
                         } else {
-                            alert(response.message);
+                            swal({
+                                title: "Gagal",
+                                text: response.message,
+                                icon: "error",
+                            });
                         }
 
                         $('#formLocation')[0].reset();
@@ -641,10 +697,18 @@
                             });
                         }
                         else if (response.status === 400) {
-                            alert(response.responseJSON.message);
+                            swal({
+                                title: "Gagal",
+                                text: response.responseJSON.message,
+                                icon: "error",
+                            });
                         }
                         else {
-                            alert("Whoops, looks like something went wrong.");
+                            swal({
+                                title: "Gagal",
+                                text: "Whoops, looks like something went wrong.",
+                                icon: "error",
+                            });
                         }
                         $('#formLocation button[type=submit]').button('reset');
                     }

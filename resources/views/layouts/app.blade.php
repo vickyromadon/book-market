@@ -70,6 +70,7 @@
 
     <script src="{{ asset('/templates/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/templates/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('/js/sweetalert.min.js') }}"></script>
     @yield('js')
 </body>
 </html>

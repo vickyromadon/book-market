@@ -22,7 +22,15 @@ class Controller extends BaseController
         $controller[count($controller) - 1] = preg_replace('/Controller$/', '', end($controller));
         $route = array_merge($controller, [$method]);
 
-        $view = strtolower(implode($route, '.'));
+        // $view = strtolower(implode($route, '.'));
+        $view = "";
+        for ($i=0; $i < count($route); $i++) {
+            $view .= strtolower($route[$i]);
+
+            if ( $i != count($route) - 1 ) {
+                $view .= ".";
+            }
+        }
 
         return view($view, $data, $mergeData);
     }
