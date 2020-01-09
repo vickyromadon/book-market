@@ -179,6 +179,11 @@
                             <i class="fa fa-dollar"></i> <span>TopUp Saldo</span>
                         </a>
                     </li>
+                    <li class="{{(Request::segment(2) == 'product') ? "active" : ""}}">
+                        <a href="{{ route('admin.product.index') }}">
+                            <i class="fa fa-cubes"></i> <span>Produk</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

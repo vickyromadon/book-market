@@ -20,21 +20,24 @@
 				<div class="card-header">
                     <a href="#" class="btn btn-primary btn-sm pull-right" id="btnAdd"><i class="fa fa-plus"></i> Tambah</a>
 				</div>
-		        <div class="card-body">
-		            <table id="data_table" class="table table-striped table-bordered nowrap" style="width:100%">
-		                <thead class="thead-light">
-                            <tr >
-                                <th class="center">No</th>
-                                <th class="text-center">Judul</th>
-                                <th class="text-center">Tersedia</th>
-                                <th class="text-center">Harga</th>
-                                <th class="text-center">Terjual</th>
-                                <th class="text-center">Melihat</th>
-                                <th class="text-center">Tanggal di Buat</th>
-                                <th class="center text-center">Aksi</th>
-                            </tr>
-		                </thead>
-		            </table>
+		        <div class="card-body table-responsive">
+                    <div class="table-responsive">
+                        <table id="data_table" class="table table-striped table-bordered nowrap" style="width:100%">
+                            <thead class="thead-light">
+                                <tr >
+                                    <th class="center">No</th>
+                                    <th class="text-center">Judul</th>
+                                    <th class="text-center">Tersedia</th>
+                                    <th class="text-center">Harga</th>
+                                    <th class="text-center">Terjual</th>
+                                    <th class="text-center">Melihat</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Tanggal di Buat</th>
+                                    <th class="center text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
 		        </div>
 		    </div>
 		</div>
@@ -122,6 +125,18 @@
                                     <span class="help-block"></span>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Status</label>
+
+                                <div class="col-sm-9">
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="">-- Pilih Salah Satu --</option>
+                                        <option value="publish">Tampilkan</option>
+                                        <option value="no publish">Sembunyikan</option>
+                                    </select>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -163,6 +178,80 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- view -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalView">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <table style="border-spacing: 10px; border-collapse: separate;">
+                        <tr>
+                            <th>Judul</th>
+                            <td>:</td>
+                            <td id="title"></td>
+                        </tr>
+                        <tr>
+                            <th>Gambar</th>
+                            <td>:</td>
+                            <td id="image"><img src="#" class="img-thumbnail" style="height:40vh; width:50vh;"></td>
+                        </tr>
+                        <tr>
+                            <th>Deskripsi</th>
+                            <td>:</td>
+                            <td id="description"></td>
+                        </tr>
+                        <tr>
+                            <th>Tersedia</th>
+                            <td>:</td>
+                            <td id="quantity"></td>
+                        </tr>
+                        <tr>
+                            <th>Harga</th>
+                            <td>:</td>
+                            <td id="price"></td>
+                        </tr>
+                        <tr>
+                            <th>Terjual</th>
+                            <td>:</td>
+                            <td id="sold"></td>
+                        </tr>
+                        <tr>
+                            <th>Melihat</th>
+                            <td>:</td>
+                            <td id="view"></td>
+                        </tr>
+                        <tr>
+                            <th>Kategori</th>
+                            <td>:</td>
+                            <td id="category"></td>
+                        </tr>
+                        <tr>
+                            <th>Jenjang</th>
+                            <td>:</td>
+                            <td id="level"></td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>:</td>
+                            <td id="status"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                        Tutup
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -217,19 +306,37 @@
                         "orderable": true,
                     },
                     {
+                        "data": "status",
+                        render : function(data, type, row){
+                            if (data == "publish") {
+                                return "Tampilkan";
+                            } else if(data == "no publish") {
+                                return "Sembunyikan";
+                            } else {
+                                return "Dilarang"
+                            }
+                        },
+                        "orderable": true,
+                    },
+                    {
                         "data": "created_at",
                         "orderable": true,
                     },
                     {
                         render : function(data, type, row){
-                            return	'<a href="#" class="edit-btn btn btn-xs btn-warning"><i class="fa fa-pencil"></i></a> &nbsp' +
-                                	'<a href="#" class="delete-btn btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>';
+                            if (row.status != "banned") {
+                                return	'<a href="#" class="view-btn btn btn-xs btn-info"><i class="fa fa-eye"></i></a> &nbsp' +
+                                        '<a href="#" class="edit-btn btn btn-xs btn-warning"><i class="fa fa-pencil"></i></a> &nbsp' +
+                                        '<a href="#" class="delete-btn btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>';
+                            } else {
+                                return "-";
+                            }
                         },
                         "width": "10%",
                         "orderable": false,
                     }
                 ],
-                "order": [ 6, 'desc' ],
+                "order": [ 7, 'desc' ],
                 "fnCreatedRow" : function(nRow, aData, iDataIndex) {
                     $(nRow).attr('data', JSON.stringify(aData));
                 }
@@ -270,6 +377,7 @@
                 $('#category_id').val(aData.category_id);
                 $('#level_id').val(aData.level_id);
                 $('#price').val(aData.price);
+                $('#status').val(aData.status);
 
                 $('#modalAdd').modal('show');
             });
@@ -419,6 +527,37 @@
                         $('#formDelete button[type=submit]').button('reset');
                     }
                 });
+            });
+
+            // View
+            $('#data_table').on('click', '.view-btn', function(e){
+                $('#modalView .modal-title').text("Lihat Slider");
+
+                var aData = JSON.parse($(this).parent().parent().attr('data'));
+
+                $('#modalView #title').text(aData.title);
+                if ( aData.image != null ) {
+                    $('#modalView #image img').attr("src", "{{ asset('storage/')}}" + "/" + aData.image);
+                } else {
+                    $('#modalView #image img').attr("src", "{{ asset('images/book.jpg') }}");
+                }
+                $('#modalView #description').text(aData.description);
+                $('#modalView #quantity').text(aData.quantity);
+                $('#modalView #price').text(aData.price);
+                $('#modalView #sold').text(aData.sold);
+                $('#modalView #view').text(aData.view);
+                $('#modalView #category').text(aData.category.name);
+                $('#modalView #level').text(aData.level.name);
+
+                if (aData.status == 'publish') {
+                    $('#modalView #status').text("Tampilkan");
+                } else if( aData.status == 'no publish' ){
+                    $('#modalView #status').text("Sembunyikan");
+                } else {
+                    $('#modalView #status').text("Dilarang");
+                }
+
+                $('#modalView').modal('show');
             });
         });
     </script>

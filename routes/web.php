@@ -119,5 +119,11 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
         ]]);
         Route::post('topup/approve',               'TopUpController@approve')->name('topup.approve');
         Route::post('topup/reject',                'TopUpController@reject')->name('topup.reject');
+
+        // product
+        Route::match(['get', 'post'], 'product',   'ProductController@index')->name('product.index');
+        Route::resource('product',                 'ProductController', ['only' => [
+            'update',
+        ]]);
     });
 });

@@ -31,21 +31,34 @@ class ProductController extends Controller
                 "price",
                 "sold",
                 "view",
+                "status",
                 "created_at"
             ];
 
-            $total = Product::where("title", 'LIKE', "%$search%")
-                ->where("quantity", 'LIKE', "%$search%")
-                ->where("price", 'LIKE', "%$search%")
-                ->where("sold", 'LIKE', "%$search%")
-                ->where("view", 'LIKE', "%$search%")
+            $store = Store::where('user_id', '=', Auth::user()->id)->first();
+
+            $total = Product::with(['category', 'level'])
+                ->where('store_id', '=', $store->id)
+                ->where(function ($q) use ($search) {
+                    $q->where("title", 'LIKE', "%$search%")
+                        ->orWhere("quantity", 'LIKE', "%$search%")
+                        ->orWhere("price", 'LIKE', "%$search%")
+                        ->orWhere("sold", 'LIKE', "%$search%")
+                        ->orWhere("view", 'LIKE', "%$search%")
+                        ->orWhere("status", 'LIKE', "%$search%");
+                })
                 ->count();
 
-            $data = Product::where("title", 'LIKE', "%$search%")
-                ->where("quantity", 'LIKE', "%$search%")
-                ->where("price", 'LIKE', "%$search%")
-                ->where("sold", 'LIKE', "%$search%")
-                ->where("view", 'LIKE', "%$search%")
+            $data = Product::with(['category', 'level'])
+                ->where('store_id', '=', $store->id)
+                ->where(function ($q) use ($search) {
+                    $q->where("title", 'LIKE', "%$search%")
+                        ->orWhere("quantity", 'LIKE', "%$search%")
+                        ->orWhere("price", 'LIKE', "%$search%")
+                        ->orWhere("sold", 'LIKE', "%$search%")
+                        ->orWhere("view", 'LIKE', "%$search%")
+                        ->orWhere("status", 'LIKE', "%$search%");
+                })
                 ->orderBy($column[$request->order[0]['column'] - 1], $request->order[0]['dir'])
                 ->skip($start)
                 ->take($length)
@@ -77,6 +90,7 @@ class ProductController extends Controller
             'image'         => 'nullable|mimes:jpeg,jpg,png|max:5000',
             'category_id'   => 'required',
             'level_id'      => 'required',
+            'status'        => 'required',
         ]);
 
         $store = Store::where('user_id', '=', Auth::user()->id)->first();
@@ -88,8 +102,12 @@ class ProductController extends Controller
         $product->price         = $request->price;
         $product->category_id   = $request->category_id;
         $product->level_id      = $request->level_id;
-        $product->image         = $request->file('image')->store('product/' . Auth::user()->id);
         $product->store_id      = $store->id;
+        $product->status        = $request->status;
+
+        if ($request->image != null) {
+            $product->image     = $request->file('image')->store('product/' . Auth::user()->id);
+        }
 
         if (!$product->save()) {
             if ($request->hasFile('image')) {
@@ -120,6 +138,8 @@ class ProductController extends Controller
             'image'         => 'nullable|mimes:jpeg,jpg,png|max:5000',
             'category_id'   => 'required',
             'level_id'      => 'required',
+            'status'        => 'required',
+
         ]);
 
         $product                = Product::find($request->id);
@@ -129,6 +149,8 @@ class ProductController extends Controller
         $product->price         = $request->price;
         $product->category_id   = $request->category_id;
         $product->level_id      = $request->level_id;
+        $product->status        = $request->status;
+
 
         if ($request->image != null) {
             if ($product->image != null) {

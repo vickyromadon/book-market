@@ -82,7 +82,7 @@
                     },
                     {
                         render : function(data, type, row){
-                            return '<a href="{{ route('admin.topup.index') }}/'+ row.id +'" class="btn btn-xs btn-info"><i class="fa fa-eye"></i> Detail</a>';
+                            return '<a href="{{ route('admin.topup.index') }}/'+ row.id +'" class="btn btn-xs btn-info"><i class="fa fa-eye"></i></a>';
                         },
                         "width": "10%",
                         "orderable": false,
