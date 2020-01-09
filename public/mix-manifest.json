@@ -4,5 +4,9 @@
     "/js/jquery.toast.min.js": "/js/jquery.toast.min.js",
     "/js/lightgallery.min.js": "/js/lightgallery.min.js",
     "/js/summernote.js": "/js/summernote.js",
-    "/js/sweetalert.min.js": "/js/sweetalert.min.js"
+    "/js/sweetalert.min.js": "/js/sweetalert.min.js",
+    "/js/jquery.dataTables.min.js": "/js/jquery.dataTables.min.js",
+    "/js/dataTables.bootstrap.min.js": "/js/dataTables.bootstrap.min.js",
+    "/css/dataTables.bootstrap.min.css": "/css/dataTables.bootstrap.min.css",
+    "/css/font-awesome.min.css": "/css/font-awesome.min.css"
 }

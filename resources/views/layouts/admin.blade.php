@@ -135,7 +135,7 @@
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="treeview {{ (Request::segment(2) == 'province') ? "active" : "" || (Request::segment(2) == 'district') ? "active" : "" || (Request::segment(2) == 'sub-district') ? "active" : ""}}">
+                    <li class="treeview {{ (Request::segment(2) == 'province') ? "active" : "" }} {{ (Request::segment(2) == 'district') ? "active" : "" }} {{ (Request::segment(2) == 'sub-district') ? "active" : ""}}">
                         <a href="#">
                             <i class="fa fa-map"></i> <span>Pengelola Lokasi</span>
                             <span class="pull-right-container">

@@ -11,6 +11,8 @@
 
     <link href="{{ asset('/templates/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/templates/css/modern-business.css') }}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
     @yield('css')
 </head>
 
@@ -32,7 +34,7 @@
                     @else
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <b style="color:red;">Saldo Rp. {{ number_format(Auth::user()->balance) }}</b>
+                            <b style="color:red;"><i class="fa fa-money"></i> Rp. {{ number_format(Auth::user()->balance) }}</b>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -71,6 +73,7 @@
     <script src="{{ asset('/templates/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/templates/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('/js/sweetalert.min.js') }}"></script>
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     @yield('js')
 </body>
 </html>

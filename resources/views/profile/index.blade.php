@@ -293,7 +293,7 @@
                             </form>
                         </div>
                         <div class="col-md-6">
-                            <table class="table table-striped">
+                            <table id="table_balance" class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>Nominal</th>
@@ -683,6 +683,10 @@
             });
 
             // Balance
+            $(document).ready( function () {
+                $('#table_balance').DataTable();
+            });
+
             $('#formBalance').submit(function (event) {
                 event.preventDefault();
                 $('#formBalance button[type=submit]').button('loading');

@@ -44,6 +44,13 @@ Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
         Route::post('profile/password', 'ProfileController@password')->name('profile.password');
         Route::post('profile/avatar',   'ProfileController@avatar')->name('profile.avatar');
         Route::post('profile/location',   'ProfileController@location')->name('profile.location');
+
+        // product
+        Route::match(['get', 'post'], 'product',   'ProductController@index')->name('product.index');
+        Route::post('product/add',                 'ProductController@store')->name('product.store');
+        Route::resource('product',                 'ProductController', ['only' => [
+            'update', 'destroy',
+        ]]);
     });
 });
 

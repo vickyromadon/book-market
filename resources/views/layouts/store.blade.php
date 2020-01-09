@@ -11,6 +11,8 @@
 
     <link href="{{ asset('/templates/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/templates/css/modern-business.css') }}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
     @yield('css')
 </head>
 
@@ -49,9 +51,9 @@
         <div class="row" style="min-height:100vh;">
             <div class="col-lg-3 mb-4">
                 <div class="list-group">
-                    <a href="{{ route('store.index') }}" class="list-group-item {{(Request::segment(2) == '') ? "active" : ""}}">Dashboard</a>
+                    <a href="{{ route('store.index') }}" class="list-group-item {{(Request::segment(2) == '') ? "active" : ""}}"><i class="fa fa-dashboard"></i> Dashboard</a>
                     @if ( $checkStore != null )
-                        <a href="#" class="list-group-item">Produk</a>
+                        <a href="{{ route('store.product.index') }}" class="list-group-item {{(Request::segment(2) == 'product') ? "active" : ""}}"><i class="fa fa-cubes"></i> Produk</a>
                     @endif
                 </div>
             </div>
@@ -70,6 +72,7 @@
     <script src="{{ asset('/templates/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/templates/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('/js/sweetalert.min.js') }}"></script>
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     @yield('js')
 </body>
 
