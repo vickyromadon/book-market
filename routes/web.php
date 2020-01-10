@@ -22,6 +22,12 @@ Route::post('register', 'Auth\RegisterController@register');
 // home
 Route::get('/', 'HomeController@index')->name('index');
 
+// product
+Route::get('product',                   'ProductController@index')->name('product.index');
+Route::get('product/category/{id}',     'ProductController@category')->name('product.category');
+Route::get('product/level/{id}',        'ProductController@level')->name('product.level');
+Route::get('product/detail/{id}',       'ProductController@detail')->name('product.detail');
+
 Route::group(['middleware' => ['auth']], function () {
     // profile
     Route::get('profile',           'ProfileController@index')->name('profile.index');

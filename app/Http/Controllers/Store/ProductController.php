@@ -27,6 +27,7 @@ class ProductController extends Controller
 
             $column = [
                 "title",
+                "publisher",
                 "quantity",
                 "price",
                 "sold",
@@ -41,6 +42,7 @@ class ProductController extends Controller
                 ->where('store_id', '=', $store->id)
                 ->where(function ($q) use ($search) {
                     $q->where("title", 'LIKE', "%$search%")
+                        ->orWhere("publisher", 'LIKE', "%$search%")
                         ->orWhere("quantity", 'LIKE', "%$search%")
                         ->orWhere("price", 'LIKE', "%$search%")
                         ->orWhere("sold", 'LIKE', "%$search%")
@@ -53,6 +55,7 @@ class ProductController extends Controller
                 ->where('store_id', '=', $store->id)
                 ->where(function ($q) use ($search) {
                     $q->where("title", 'LIKE', "%$search%")
+                        ->orWhere("publisher", 'LIKE', "%$search%")
                         ->orWhere("quantity", 'LIKE', "%$search%")
                         ->orWhere("price", 'LIKE', "%$search%")
                         ->orWhere("sold", 'LIKE', "%$search%")
@@ -85,6 +88,7 @@ class ProductController extends Controller
         $validator = $request->validate([
             'title'         => 'required|string|max:191',
             'description'   => 'required|string',
+            'publisher'     => 'required|string',
             'quantity'      => 'required|numeric',
             'price'         => 'required|numeric',
             'image'         => 'nullable|mimes:jpeg,jpg,png|max:5000',
@@ -98,6 +102,7 @@ class ProductController extends Controller
         $product                = new Product();
         $product->title         = $request->title;
         $product->description   = $request->description;
+        $product->publisher     = $request->publisher;
         $product->quantity      = $request->quantity;
         $product->price         = $request->price;
         $product->category_id   = $request->category_id;
@@ -133,6 +138,7 @@ class ProductController extends Controller
         $validator = $request->validate([
             'title'         => 'required|string|max:191',
             'description'   => 'required|string',
+            'publisher'     => 'required|string',
             'quantity'      => 'required|numeric',
             'price'         => 'required|numeric',
             'image'         => 'nullable|mimes:jpeg,jpg,png|max:5000',
@@ -145,6 +151,7 @@ class ProductController extends Controller
         $product                = Product::find($request->id);
         $product->title         = $request->title;
         $product->description   = $request->description;
+        $product->publisher     = $request->publisher;
         $product->quantity      = $request->quantity;
         $product->price         = $request->price;
         $product->category_id   = $request->category_id;

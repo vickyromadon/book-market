@@ -29,84 +29,58 @@
 @endsection
 
 @section('content')
-    <h1 class="my-4">Welcome to Modern Business</h1>
+    <h1 class="my-4">Produk Buku Baru</h1>
 
     <div class="row">
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">Project One</a>
-                    </h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                        aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt,
-                        dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+        @for ($i = 0; $i < (count($product) < 6 ? count($product) : 6); $i++)
+            <div class="col-lg-4 portfolio-item">
+                <div class="card h-100">
+                    <a href="#">
+                        @if ($product[$i]->image != null)
+                            <img class="card-img-top" src="{{ asset('storage/'. $product[$i]->image)}}" style="width:100%; height:250px;">
+                        @else
+                            <img class="card-img-top" src="{{ asset('images/book.jpg') }}" style="width:100%; height:250px;">
+                        @endif
+                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            @if ( strlen($product[$i]->title > 20) )
+                                <a href="#">{{ substr($product[$i]->title, 0, 20) }} ...</a>
+                            @else
+                                <a href="#">{{ $product[$i]->title }}</a>
+                            @endif
+
+                        </h4>
+                        <h5>
+                            <i class="fa fa-user"></i>
+                            @if ( strlen($product[$i]->publisher) > 20 )
+                                {{ substr($product[$i]->publisher, 0, 20) }} ...
+                            @else
+                                {{ $product[$i]->publisher }}
+                            @endif
+                        </h5>
+                        <p class="card-text" align="justify">
+                            @if ( strlen($product[$i]->description) > 200 )
+                                {{ substr($product[$i]->description, 0, 200) }} . . .
+                            @else
+                                {{ $product[$i]->description }}
+                            @endif
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">Project Two</a>
-                    </h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra
-                        euismod odio, gravida pellentesque urna varius vitae.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">Project Three</a>
-                    </h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam,
-                        error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere
-                        atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">Project Four</a>
-                    </h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra
-                        euismod odio, gravida pellentesque urna varius vitae.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">Project Five</a>
-                    </h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra
-                        euismod odio, gravida pellentesque urna varius vitae.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">Project Six</a>
-                    </h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum
-                        nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in
-                        voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
-                </div>
-            </div>
+        @endfor
+    </div>
+
+    <hr>
+
+    <h1 class="my-4">Tentang</h1>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, officiis! Sunt quibusdam accusantium tenetur saepe quasi voluptate harum? Odit labore laudantium debitis perferendis at accusamus quod nam quos incidunt nesciunt?
+            </p>
         </div>
     </div>
-    <!-- /.row -->
 @endsection

@@ -19,13 +19,40 @@
 <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('index') }}">{{ env('APP_NAME') }}</a>
+            <a class="navbar-brand" href="#">{{ env('APP_NAME') }}</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item">
+                        <a href="{{ route('index') }}" class="nav-link"><i class="fa fa-home"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('product.index') }}" class="nav-link">Produk</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Kategori</a>
+                        <div class="dropdown-menu">
+                            @foreach (\App\Models\Category::all() as $item)
+                                <a href="{{ route('product.category', ['id' => $item->id]) }}" class="dropdown-item">{{ $item->name }}</a>
+                            @endforeach
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Jenjang</a>
+                        <div class="dropdown-menu">
+                            @foreach (\App\Models\Level::all() as $item)
+                                <a href="{{ route('product.level', ['id' => $item->id]) }}" class="dropdown-item">{{ $item->name }}</a>
+                            @endforeach
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Kontak</a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav ml-auto">
                     @if( !Auth::user() )
                     <li class="nav-item">
@@ -37,16 +64,21 @@
                             <b style="color:red;"><i class="fa fa-money"></i> Rp. {{ number_format(Auth::user()->balance) }}</b>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profile.index') }}">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Keluar</a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                            style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}</a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="{{ route('profile.index') }}" class="dropdown-item">Profile</a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Keluar</a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </div>
                     </li>
                     @endif
                 </ul>

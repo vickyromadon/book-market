@@ -27,6 +27,7 @@
                                 <tr >
                                     <th class="center">No</th>
                                     <th class="text-center">Judul</th>
+                                    <th class="text-center">Penerbit</th>
                                     <th class="text-center">Tersedia</th>
                                     <th class="text-center">Harga</th>
                                     <th class="text-center">Terjual</th>
@@ -64,6 +65,14 @@
 
                                 <div class="col-sm-9">
                                     <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan Judul">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Penerbit</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" id="publisher" name="publisher" class="form-control" placeholder="Masukkan Penerbit">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -201,6 +210,11 @@
                             <td id="title"></td>
                         </tr>
                         <tr>
+                            <th>Penerbit</th>
+                            <td>:</td>
+                            <td id="publisher"></td>
+                        </tr>
+                        <tr>
                             <th>Gambar</th>
                             <td>:</td>
                             <td id="image"><img src="#" class="img-thumbnail" style="height:40vh; width:50vh;"></td>
@@ -290,6 +304,10 @@
                         "orderable": true,
                     },
                     {
+                        "data": "publisher",
+                        "orderable": true,
+                    },
+                    {
                         "data": "quantity",
                         "orderable": true,
                     },
@@ -336,7 +354,7 @@
                         "orderable": false,
                     }
                 ],
-                "order": [ 7, 'desc' ],
+                "order": [ 8, 'desc' ],
                 "fnCreatedRow" : function(nRow, aData, iDataIndex) {
                     $(nRow).attr('data', JSON.stringify(aData));
                 }
@@ -372,6 +390,7 @@
 
                 $('#id').val(aData.id);
                 $('#title').val(aData.title);
+                $('#publisher').val(aData.publisher);
                 $('#description').val(aData.description);
                 $('#quantity').val(aData.quantity);
                 $('#category_id').val(aData.category_id);
@@ -536,6 +555,7 @@
                 var aData = JSON.parse($(this).parent().parent().attr('data'));
 
                 $('#modalView #title').text(aData.title);
+                $('#modalView #publisher').text(aData.publisher);
                 if ( aData.image != null ) {
                     $('#modalView #image img').attr("src", "{{ asset('storage/')}}" + "/" + aData.image);
                 } else {

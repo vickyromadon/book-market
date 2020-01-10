@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->integer('quantity');
             $table->bigInteger('price');
-            $table->string('image')->default(null)->nullable();;
+            $table->string('image')->default(null)->nullable();
             $table->integer('sold')->default(0);
             $table->integer('view')->default(0);
             $table->enum('status', ['publish', 'no publish', 'banned'])->default('publish');
