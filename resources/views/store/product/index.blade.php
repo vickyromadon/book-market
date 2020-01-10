@@ -464,6 +464,7 @@
                             if(error['image'] != undefined){
                                 $("#formAdd input[name='image']").parent().find('.help-block').text(error['image']);
                                 $("#formAdd input[name='image']").parent().find('.help-block').show();
+                                $("#formAdd input[name='image']").parent().find('.help-block').css("color", "red");
                                 $("#formAdd input[name='image']").parent().parent().addClass('has-error');
                             }
                         }

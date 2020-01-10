@@ -171,7 +171,7 @@ class ProductController extends Controller
         if (!$product->save()) {
             if ($request->hasFile('image')) {
                 $fileDelete = Product::where('image', '=', $product->image)->first();
-                Product::delete($fileDelete->image);
+                Storage::delete($fileDelete->image);
                 $fileDelete->delete();
             }
 

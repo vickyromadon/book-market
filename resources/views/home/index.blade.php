@@ -35,7 +35,7 @@
         @for ($i = 0; $i < (count($product) < 6 ? count($product) : 6); $i++)
             <div class="col-lg-4 portfolio-item">
                 <div class="card h-100">
-                    <a href="#">
+                    <a href="{{ route('product.detail', ['id' => $product[$i]->id]) }}">
                         @if ($product[$i]->image != null)
                             <img class="card-img-top" src="{{ asset('storage/'. $product[$i]->image)}}" style="width:100%; height:250px;">
                         @else
@@ -45,9 +45,9 @@
                     <div class="card-body">
                         <h4 class="card-title">
                             @if ( strlen($product[$i]->title > 20) )
-                                <a href="#">{{ substr($product[$i]->title, 0, 20) }} ...</a>
+                                <a href="{{ route('product.detail', ['id' => $product[$i]->id]) }}">{{ substr($product[$i]->title, 0, 20) }} ...</a>
                             @else
-                                <a href="#">{{ $product[$i]->title }}</a>
+                                <a href="{{ route('product.detail', ['id' => $product[$i]->id]) }}">{{ $product[$i]->title }}</a>
                             @endif
 
                         </h4>

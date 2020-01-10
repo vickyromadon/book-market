@@ -30,13 +30,13 @@ class ProfileController extends Controller
     public function setting(Request $request)
     {
         $validator = $request->validate([
-            'name'          => ['required', 'string', 'max:191', Rule::unique('stores')->ignore(Auth::user()->id, 'user_id')],
-            'phone'         => ['required', 'string', Rule::unique('users')->ignore(Auth::user()->id)],
+            'name'          => ['nullable', 'string', 'max:191', Rule::unique('stores')->ignore(Auth::user()->id, 'user_id')],
+            'phone'         => ['nullable', 'string', Rule::unique('users')->ignore(Auth::user()->id)],
         ]);
 
         $user           = User::find(Auth::user()->id);
-        $user->name     = $request->name;
-        $user->phone    = $request->phone;
+        $user->name     = $request->name != null ? $request->name : $user->name;
+        $user->phone    = $request->phone != null ? $request->phone : $user->phone;
 
         if ($user->save()) {
             return response()->json([

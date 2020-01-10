@@ -17,56 +17,94 @@
 @section('content')
     <div class="row">
         <div class="col-lg-8">
-            @if ($product->image != null)
-                <img class="img-fluid rounded" src="{{ asset('storage/'. $product->image)}}" style="width:100%;">
-            @else
-                <img class="img-fluid rounded" src="{{ asset('images/book.jpg') }}" style="width:100%;">
-            @endif
+            <div class="row">
+                <div class="col-lg-12">
+                    @if ($product->image != null)
+                        <img class="img-fluid rounded" src="{{ asset('storage/'. $product->image)}}" style="width:100%;">
+                    @else
+                        <img class="img-fluid rounded" src="{{ asset('images/book.jpg') }}" style="width:100%;">
+                    @endif
+                </div>
+            </div>
 
             <hr>
 
-            <p>Di Posting Pada {{ $product->created_at }}</p>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="pull-left">
+                        <i class="fa fa-calendar"></i>
+                        Posting Pada {{ $product->created_at }}
+                    </div>
+                    <div class="pull-right">
+                        <i class="fa fa-user"></i>
+                        Posting Oleh {{ $product->store->name }}
+                    </div>
+                </div>
+            </div>
 
             <hr>
 
-            <p>
-                {{ $product->description }}
-            </p>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>
+                        {{ $product->description }}
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="col-lg-4">
             <div class="card my-4">
                 <h5 class="card-header">Keterangan</h5>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <ul class="list-unstyled mb-0">
                                 <li>
-                                    <a href="#">Web Design</a>
+                                    <a href="#">Penerbit</a>
                                 </li>
                                 <li>
-                                    <a href="#">HTML</a>
+                                    <a href="#">Kategori</a>
                                 </li>
                                 <li>
-                                    <a href="#">Freebies</a>
+                                    <a href="#">Jenjang</a>
+                                </li>
+                                <li>
+                                    <a href="#">Tersedia</a>
+                                </li>
+                                <li>
+                                    <a href="#">Harga</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-8">
                             <ul class="list-unstyled mb-0">
                                 <li>
-                                    <a href="#">JavaScript</a>
+                                    : {{ $product->publisher }}
                                 </li>
                                 <li>
-                                    <a href="#">CSS</a>
+                                    : {{ $product->category->name }}
                                 </li>
                                 <li>
-                                    <a href="#">Tutorials</a>
+                                    : {{ $product->level->name }}
+                                </li>
+                                <li>
+                                    : {{ $product->quantity }}
+                                </li>
+                                <li>
+                                    : Rp. {{ number_format($product->price) }}
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <hr>
+
+            <button class="btn btn-warning col-lg-12">
+                <i class="fa fa-cart-plus"></i>
+                Tambah Keranjang
+            </button>
         </div>
     </div>
 @endsection

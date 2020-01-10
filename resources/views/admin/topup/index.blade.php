@@ -2,11 +2,11 @@
 
 @section('header')
     <h1>
-        TopUp Saldo
+        Tambah Saldo
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li class="active">TopUp Saldo</li>
+        <li class="active">Tambah Saldo</li>
     </ol>
 @endsection
 

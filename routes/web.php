@@ -28,6 +28,9 @@ Route::get('product/category/{id}',     'ProductController@category')->name('pro
 Route::get('product/level/{id}',        'ProductController@level')->name('product.level');
 Route::get('product/detail/{id}',       'ProductController@detail')->name('product.detail');
 
+// message
+Route::match(['get', 'post'], 'message',   'MessageController@index')->name('message.index');
+
 Route::group(['middleware' => ['auth']], function () {
     // profile
     Route::get('profile',           'ProfileController@index')->name('profile.index');
@@ -36,6 +39,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('profile/avatar',   'ProfileController@avatar')->name('profile.avatar');
     Route::post('profile/location', 'ProfileController@location')->name('profile.location');
     Route::post('profile/balance',  'ProfileController@balance')->name('profile.balance');
+
+    // donation
+    Route::match(['get', 'post'], 'donation',   'DonationController@index')->name('donation.index');
+    Route::post('donation/add',                 'DonationController@store')->name('donation.store');
+    Route::resource('donation',                 'DonationController', ['only' => [
+        'update', 'destroy'
+    ]]);
 
 });
 
@@ -49,7 +59,7 @@ Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
         Route::post('profile/setting',  'ProfileController@setting')->name('profile.setting');
         Route::post('profile/password', 'ProfileController@password')->name('profile.password');
         Route::post('profile/avatar',   'ProfileController@avatar')->name('profile.avatar');
-        Route::post('profile/location',   'ProfileController@location')->name('profile.location');
+        Route::post('profile/location', 'ProfileController@location')->name('profile.location');
 
         // product
         Route::match(['get', 'post'], 'product',   'ProductController@index')->name('product.index');
@@ -126,10 +136,29 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
         Route::post('topup/approve',               'TopUpController@approve')->name('topup.approve');
         Route::post('topup/reject',                'TopUpController@reject')->name('topup.reject');
 
+        // withdraw
+        Route::match(['get', 'post'], 'withdraw',   'WithdrawController@index')->name('withdraw.index');
+        Route::resource('withdraw',                 'WithdrawController', ['only' => [
+            'show'
+        ]]);
+        Route::post('withdraw/approve',               'WithdrawController@approve')->name('withdraw.approve');
+        Route::post('withdraw/reject',                'WithdrawController@reject')->name('withdraw.reject');
+
         // product
         Route::match(['get', 'post'], 'product',   'ProductController@index')->name('product.index');
         Route::resource('product',                 'ProductController', ['only' => [
             'update',
         ]]);
+
+        // message
+        Route::match(['get', 'post'], 'message',   'MessageController@index')->name('message.index');
+
+        // donation
+        Route::match(['get', 'post'], 'donation',   'DonationController@index')->name('donation.index');
+        Route::resource('donation',                 'DonationController', ['only' => [
+            'show'
+        ]]);
+        Route::post('donation/approve',               'DonationController@approve')->name('donation.approve');
+        Route::post('donation/reject',                'DonationController@reject')->name('donation.reject');
     });
 });

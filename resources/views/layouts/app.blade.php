@@ -50,7 +50,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Kontak</a>
+                        <a href="{{ route('message.index') }}" class="nav-link">Kontak</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -69,6 +69,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}</a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="{{ route('profile.index') }}" class="dropdown-item">Profile</a>
+                            <a href="{{ route('donation.index') }}" class="dropdown-item">Donasi Buku</a>
 
                             <div class="dropdown-divider"></div>
 

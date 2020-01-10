@@ -33,4 +33,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\TopUp');
     }
+
+    public function donations()
+    {
+        return $this->hasMany('App\Models\Donation');
+    }
 }

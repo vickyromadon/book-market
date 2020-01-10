@@ -174,14 +174,37 @@
                             <i class="fa fa-picture-o"></i> <span>Slider</span>
                         </a>
                     </li>
-                    <li class="{{(Request::segment(2) == 'topup') ? "active" : ""}}">
-                        <a href="{{ route('admin.topup.index') }}">
-                            <i class="fa fa-dollar"></i> <span>TopUp Saldo</span>
+
+                    <li class="treeview {{ (Request::segment(2) == 'topup') ? "active" : "" }} {{ (Request::segment(2) == 'withdraw') ? "active" : ""}}">
+                        <a href="#">
+                            <i class="fa fa-dollar"></i> <span>Saldo</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
                         </a>
+                        <ul class="treeview-menu">
+                            <li class="{{ (Request::segment(2) == 'topup') ? "active" : "" }}">
+                                <a href="{{ route('admin.topup.index') }}"><i class="fa fa-circle-o"></i> Penambahan</a>
+                            </li>
+                            <li class="{{ (Request::segment(2) == 'withdraw') ? "active" : "" }}">
+                                <a href="{{ route('admin.withdraw.index') }}"><i class="fa fa-circle-o"></i> Penarikan</a>
+                            </li>
+                        </ul>
                     </li>
+
                     <li class="{{(Request::segment(2) == 'product') ? "active" : ""}}">
                         <a href="{{ route('admin.product.index') }}">
                             <i class="fa fa-cubes"></i> <span>Produk</span>
+                        </a>
+                    </li>
+                    <li class="{{(Request::segment(2) == 'message') ? "active" : ""}}">
+                        <a href="{{ route('admin.message.index') }}">
+                            <i class="fa fa-envelope"></i> <span>Pesan</span>
+                        </a>
+                    </li>
+                    <li class="{{(Request::segment(2) == 'donation') ? "active" : ""}}">
+                        <a href="{{ route('admin.donation.index') }}">
+                            <i class="fa fa-book"></i> <span>Donasi</span>
                         </a>
                     </li>
                 </ul>
