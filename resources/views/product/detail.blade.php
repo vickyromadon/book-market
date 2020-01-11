@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card my-4">
+            <div class="card">
                 <h5 class="card-header">Keterangan</h5>
                 <div class="card-body">
                     <div class="row">
@@ -101,11 +101,155 @@
 
             <hr>
 
-            <button class="btn btn-warning col-lg-12">
+            <button id="btnCart" class="btn btn-warning col-lg-12">
                 <i class="fa fa-cart-plus"></i>
                 Tambah Keranjang
             </button>
         </div>
     </div>
+
+    <!-- add cart -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalCart">
+        <div class="modal-dialog" role="document" style="width: 100%;">
+            <div class="modal-content">
+                <form action="#" method="post" id="formCart" enctype="multipart/form-data" autocomplete="off">
+                    <div class="modal-header">
+                        <h4 class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            {{ csrf_field() }}
+                            <input type="hidden" id="product_id" name="product_id" value="{{ $product->id }}">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Jumlah</label>
+
+                                <div class="col-sm-9">
+                                    <input type="number" id="quantity" name="quantity" class="form-control" placeholder="Masukkan Jumlah" min="1" max="{{ $product->quantity }}">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Kembali
+                        </button>
+                        <button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i>">
+                            Tambah
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
+@section('js')
+	<script>
+        jQuery(document).ready(function($){
+            // add cart
+            $('#btnCart').click(function () {
+                $('#formCart')[0].reset();
+                $('#formCart .modal-title').text("Tambah Keranjang");
+                $('#formCart div.form-group').removeClass('has-error');
+                $('#formCart .help-block').empty();
+                $('#formCart button[type=submit]').button('reset');
+
+                $('#formCart input[name="_method"]').remove();
+
+                $('#modalCart').modal('show');
+            });
+
+            $('#formCart').submit(function (event) {
+                event.preventDefault();
+                $('#formCart button[type=submit]').button('loading');
+                $('#formCart div.form-group').removeClass('has-error');
+                $('#formCart .help-block').empty();
+
+                var formData = new FormData($("#formCart")[0]);
+
+                $.ajax({
+                    url: "{{ route('cart.store') }}",
+                    type: 'POST',
+                    data: formData,
+                    processData : false,
+                    contentType : false,
+                    cache: false,
+
+                    success: function (response) {
+                        if (response.success) {
+                            swal({
+                                title: "Sukses",
+                                text: response.message,
+                                icon: "success",
+                            });
+
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1000);
+                        }
+                        else{
+                            swal({
+                                title: "Gagal",
+                                text: response.message,
+                                icon: "error",
+                            });
+                        }
+                        $('#formCart button[type=submit]').button('reset');
+                    },
+
+                    error: function(response){
+                        if (response.status === 422) {
+                            // form validation errors fired up
+
+                            var error = response.responseJSON.errors;
+                            var data = $('#formCart').serializeArray();
+                            $.each(data, function(key, value){
+                                if( error[data[key].name] != undefined ){
+                                    var elem;
+                                    if( $("#formCart input[name='" + data[key].name + "']").length )
+                                        elem = $("#formCart input[name='" + data[key].name + "']");
+                                    else if( $("#formCart textarea[name='" + data[key].name + "']").length )
+                                        elem = $("#formCart textarea[name='" + data[key].name + "']");
+                                    else
+                                        elem = $("#formCart select[name='" + data[key].name + "']");
+                                    elem.parent().find('.help-block').text(error[data[key].name]);
+                                    elem.parent().find('.help-block').show();
+                                    elem.parent().find('.help-block').css("color", "red");
+                                    elem.parent().parent().addClass('has-error');
+                                }
+                            });
+
+                            if(error['proof'] != undefined){
+                                $("#formCart input[name='proof']").parent().find('.help-block').text(error['proof']);
+                                $("#formCart input[name='proof']").parent().find('.help-block').show();
+                                $("#formCart input[name='proof']").parent().find('.help-block').css("color", "red");
+                                $("#formCart input[name='proof']").parent().parent().addClass('has-error');
+                            }
+                        }
+                        else if (response.status === 400) {
+                            // Bad Client Request
+                            swal({
+                                title: "Gagal",
+                                text: response.responseJSON.message,
+                                icon: "error",
+                            });
+                        }
+                        else {
+                            swal({
+                                title: "Gagal",
+                                text: "Whoops, looks like something went wrong.",
+                                icon: "error",
+                            });
+                        }
+                        $('#formCart button[type=submit]').button('reset');
+                    }
+                });
+            });
+        });
+    </script>
+@endsection

@@ -65,6 +65,15 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('cart.index') }}">
+                            <i class="fa fa-cart-plus"></i>
+                            <span style="color:yellow;">
+                                {{ \App\Models\Cart::where('user_id', '=', Auth::user()->id)->where('status', '=', 'pending')->count() }}
+                            </span>
+                        </a>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}</a>
                         <div class="dropdown-menu dropdown-menu-right">

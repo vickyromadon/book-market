@@ -25,4 +25,9 @@ class Product extends Model
     {
         return $this->belongsTo('App\Models\Level');
     }
+
+    public function carts()
+    {
+        return $this->hasMany('App\Models\Cart');
+    }
 }

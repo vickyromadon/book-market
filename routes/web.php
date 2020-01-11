@@ -47,6 +47,12 @@ Route::group(['middleware' => ['auth']], function () {
         'update', 'destroy'
     ]]);
 
+    // cart
+    Route::match(['get', 'post'], 'cart',   'CartController@index')->name('cart.index');
+    Route::post('cart/add',                 'CartController@store')->name('cart.store');
+    Route::resource('cart',             'CartController', ['only' => [
+        'update', 'destroy'
+    ]]);
 });
 
 Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
