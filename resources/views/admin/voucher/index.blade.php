@@ -1,90 +1,84 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('header')
-    <h1 class="mt-4 mb-3">Donasi
-        <small>Buku</small>
+    <h1>
+        Voucher
     </h1>
-
     <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('index') }}">Beranda</a>
-        </li>
-        <li class="breadcrumb-item active">Donasi Buku</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+        <li class="active">Voucher</li>
     </ol>
 @endsection
 
 @section('content')
-    <div class="row">
-		<div class="col-md-12 col-lg-12">
-			<div class="card">
-				<div class="card-header">
-                    <a href="#" class="btn btn-primary btn-sm pull-right" id="btnAdd"><i class="fa fa-plus"></i> Tambah</a>
-				</div>
-		        <div class="card-body table-responsive">
-                    <div class="table-responsive">
-                        <table id="data_table" class="table table-striped table-bordered nowrap" style="width:100%">
-                            <thead class="thead-light">
-                                <tr >
-                                    <th class="center">No</th>
-                                    <th class="text-center">Judul</th>
-                                    <th class="text-center">Jumlah</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Tanggal di Buat</th>
-                                    <th class="center text-center">Aksi</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-		        </div>
-		    </div>
-		</div>
+	<div class="box box-default">
+        <div class="box-header with-border">
+            <button id="btnAdd" class="pull-right btn btn-primary"><i class="fa fa-plus"></i> Tambah</button>
+        </div>
+
+        <div class="box-body">
+            <div class="table-responsive">
+                <table id="data_table" class="table table-striped table-bordered table-hover nowrap dataTable">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Potongan Harga</th>
+                            <th>Jumlah Tersedia</th>
+                            <th>Tukar Poin</th>
+                            <th>Tanggal di Buat</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 
     <!-- add and edit -->
     <div class="modal fade" tabindex="-1" role="dialog" id="modalAdd">
-        <div class="modal-dialog" role="document" style="width: 100%;">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <form action="#" method="post" id="formAdd" enctype="multipart/form-data" autocomplete="off">
                     <div class="modal-header">
-                        <h4 class="modal-title"></h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <h4 class="modal-title"></h4>
                     </div>
 
                     <div class="modal-body">
                         <div class="form-horizontal">
-                            {{ csrf_field() }}
                             <input type="hidden" id="id" name="id">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Judul</label>
+                                <label class="col-sm-3 control-label">Nama</label>
 
                                 <div class="col-sm-9">
-                                    <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan Judul">
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Masukkan Nama">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Jumlah</label>
+                                <label class="col-sm-3 control-label">Potongan Harga</label>
 
                                 <div class="col-sm-9">
-                                    <input type="number" id="quantity" name="quantity" class="form-control" placeholder="Masukkan Jumlah" min="0">
+                                    <input type="number" id="discount" name="discount" class="form-control" placeholder="Masukkan Potongan Harga" min="1" max="100">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Gambar</label>
+                                <label class="col-sm-3 control-label">Jumlah Tersedia</label>
 
                                 <div class="col-sm-9">
-                                    <input type="file" id="image" name="image" class="form-control" placeholder="Masukkan Gambar">
+                                    <input type="number" id="count" name="count" class="form-control" placeholder="Masukkan Jumlah Tersedia" min="1">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Pesan</label>
+                                <label class="col-sm-3 control-label">Tukar Poin</label>
 
                                 <div class="col-sm-9">
-                                    <textarea name="message" id="message" class="form-control" placeholder="Masukkan Pesan"></textarea>
+                                    <input type="number" id="point_exchange" name="point_exchange" class="form-control" placeholder="Masukkan Tukar Poin" min="1">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -107,18 +101,17 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="modalDelete">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('donation.destroy', ['id' => '#']) }}" method="post" id="formDelete">
-                    {{ method_field('DELETE') }}
-                    {{ csrf_field() }}
+                <form action="{{ route('admin.voucher.destroy', ['id' => '#']) }}" method="post" id="formDelete">
+                	{{ method_field('DELETE') }}
                     <div class="modal-header">
-                        <h4 class="modal-title">Hapus Donasi</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <h4 class="modal-title">Hapus Voucher</h4>
                     </div>
 
                     <div class="modal-body">
-                        <p id="del-success">Anda yakin ingin menghapus Donasi ?</p>
+                        <p id="del-success">Anda yakin ingin menghapus Voucher ?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
@@ -132,72 +125,20 @@
             </div>
         </div>
     </div>
-
-    <!-- view -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalView">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title"></h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <table style="border-spacing: 10px; border-collapse: separate;">
-                        <tr>
-                            <th>Judul</th>
-                            <td>:</td>
-                            <td id="title"></td>
-                        </tr>
-                        <tr>
-                            <th>Gambar</th>
-                            <td>:</td>
-                            <td id="image"><img src="#" class="img-thumbnail" style="height:40vh; width:50vh;"></td>
-                        </tr>
-                        <tr>
-                            <th>Pesan</th>
-                            <td>:</td>
-                            <td id="message"></td>
-                        </tr>
-                        <tr>
-                            <th>Jumlah</th>
-                            <td>:</td>
-                            <td id="quantity"></td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>
-                            <td>:</td>
-                            <td id="status"></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
-                        Tutup
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('js')
 	<script>
         jQuery(document).ready(function($){
             var table = $('#data_table').DataTable({
-                "responsive": true,
                 "bFilter": true,
                 "processing": true,
                 "serverSide": true,
                 "lengthChange": true,
                 "ajax": {
-                    "url": "{{ route('donation.index') }}",
+                    "url": "{{ route('admin.voucher.index') }}",
                     "type": "POST",
-                    "data" : {
-                        "_token": "{{ csrf_token() }}",
-                    }
+                    "data" : {}
                 },
                 "language": {
                     "emptyTable": "Tidak Ada Data Tersedia",
@@ -212,24 +153,19 @@
                        "orderable": false,
                     },
                     {
-                        "data": "title",
+                        "data": "name",
                         "orderable": true,
                     },
                     {
-                        "data": "quantity",
+                        "data": "discount",
                         "orderable": true,
                     },
                     {
-                        "data": "status",
-                        render : function(data, type, row){
-                            if (data == "pending") {
-                                return "Tertunda";
-                            } else if(data == "approve") {
-                                return "Diterima";
-                            } else {
-                                return "Ditolak"
-                            }
-                        },
+                        "data": "count",
+                        "orderable": true,
+                    },
+                    {
+                        "data": "point_exchange",
                         "orderable": true,
                     },
                     {
@@ -238,14 +174,8 @@
                     },
                     {
                         render : function(data, type, row){
-                            if(row.status == 'pending'){
-                                return	'<a href="#" class="view-btn btn btn-xs btn-info"><i class="fa fa-eye"></i></a> &nbsp' +
-                                    '<a href="#" class="edit-btn btn btn-xs btn-warning"><i class="fa fa-pencil"></i></a> &nbsp' +
-                                    '<a href="#" class="delete-btn btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>';
-                            } else {
-                                return '<a href="#" class="view-btn btn btn-xs btn-info"><i class="fa fa-eye"></i></a>';
-                            }
-
+                            return	'<a href="#" class="edit-btn btn btn-xs btn-warning"><i class="fa fa-pencil"></i></a> &nbsp' +
+                                	'<a href="#" class="delete-btn btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>';
                         },
                         "width": "10%",
                         "orderable": false,
@@ -257,18 +187,16 @@
                 }
             });
 
-            var url;
-
             // add
             $('#btnAdd').click(function () {
                 $('#formAdd')[0].reset();
-                $('#formAdd .modal-title').text("Tambah Donasi");
+                $('#formAdd .modal-title').text("Tambah Voucher");
                 $('#formAdd div.form-group').removeClass('has-error');
                 $('#formAdd .help-block').empty();
                 $('#formAdd button[type=submit]').button('reset');
 
                 $('#formAdd input[name="_method"]').remove();
-                url = '{{ route("donation.store") }}';
+                url = '{{ route("admin.voucher.store") }}';
 
                 $('#modalAdd').modal('show');
             });
@@ -277,19 +205,19 @@
             $('#data_table').on('click', '.edit-btn', function(e){
                 $('#formAdd div.form-group').removeClass('has-error');
                 $('#formAdd .help-block').empty();
-                $('#formAdd .modal-title').text("Ubah Donasi");
+                $('#formAdd .modal-title').text("Ubah Voucher");
                 $('#formAdd')[0].reset();
                 var aData = JSON.parse($(this).parent().parent().attr('data'));
                 $('#formAdd button[type=submit]').button('reset');
 
                 $('#formAdd .modal-body .form-horizontal').append('<input type="hidden" name="_method" value="PUT">');
-                url = '{{ route("donation.index") }}' + '/' + aData.id;
+                url = '{{ route("admin.voucher.index") }}' + '/' + aData.id;
 
                 $('#id').val(aData.id);
-                $('#title').val(aData.title);
-                $('#description').val(aData.description);
-                $('#quantity').val(aData.quantity);
-                $('#message').val(aData.message);
+                $('#name').val(aData.name);
+                $('#discount').val(aData.discount);
+                $('#count').val(aData.count);
+                $('#point_exchange').val(aData.point_exchange);
 
                 $('#modalAdd').modal('show');
             });
@@ -312,20 +240,28 @@
 
                     success: function (response) {
                         if (response.success) {
-                            swal({
-                                title: "Sukses",
-                                text: response.message,
-                                icon: "success",
+                            table.draw();
+                            $.toast({
+                                heading: 'Success',
+                                text : response.message,
+                                position : 'top-right',
+                                allowToastClose : true,
+                                showHideTransition : 'fade',
+                                icon : 'success',
+                                loader : false
                             });
 
-                            setTimeout(function () {
-    	                        location.reload();
-    	                    }, 2000);
-                        } else {
-                            swal({
-                                title: "Gagal",
-                                text: response.message,
-                                icon: "error",
+                            $('#modalAdd').modal('hide');
+                        }
+                        else {
+                            $.toast({
+                                heading: 'Error',
+                                text : response.message,
+                                position : 'top-right',
+                                allowToastClose : true,
+                                showHideTransition : 'fade',
+                                icon : 'error',
+                                loader : false
                             });
                         }
 
@@ -350,29 +286,38 @@
 
                                     elem.parent().find('.help-block').text(error[data[key].name]);
                                     elem.parent().find('.help-block').show();
-                                    elem.parent().find('.help-block').css("color", "red");
                                     elem.parent().parent().addClass('has-error');
                                 }
                             });
                             if(error['image'] != undefined){
                                 $("#formAdd input[name='image']").parent().find('.help-block').text(error['image']);
                                 $("#formAdd input[name='image']").parent().find('.help-block').show();
-                                $("#formAdd input[name='image']").parent().find('.help-block').css("color", "red");
                                 $("#formAdd input[name='image']").parent().parent().addClass('has-error');
                             }
                         }
                         else if (response.status === 400) {
-                            swal({
-                                title: "Gagal",
-                                text: response.responseJSON.message,
-                                icon: "error",
+                            // Bad Client Request
+                            $.toast({
+                                heading: 'Error',
+                                text : response.responseJSON.message,
+                                position : 'top-right',
+                                allowToastClose : true,
+                                showHideTransition : 'fade',
+                                icon : 'error',
+                                loader : false,
+                                hideAfter: 5000
                             });
                         }
                         else {
-                            swal({
-                                title: "Gagal",
-                                text: "Whoops, looks like something went wrong.",
-                                icon: "error",
+                            $.toast({
+                                heading: 'Error',
+                                text : "Whoops, looks like something went wrong.",
+                                position : 'top-right',
+                                allowToastClose : true,
+                                showHideTransition : 'fade',
+                                icon : 'error',
+                                loader : false,
+                                hideAfter: 5000
                             });
                         }
                         $('#formAdd button[type=submit]').button('reset');
@@ -402,21 +347,30 @@
 
                     success: function (response) {
                         if (response.success) {
-                            swal({
-                                title: "Sukses",
-                                text: response.message,
-                                icon: "success",
-                            });
+                            table.draw();
 
-                            setTimeout(function () {
-    	                        location.reload();
-    	                    }, 2000);
-                        } else {
-                            swal({
-                                title: "Gagal",
-                                text: response.message,
-                                icon: "error",
-                            });
+                            $.toast({
+	                            heading: 'Success',
+	                            text : response.message,
+	                            position : 'top-right',
+	                            allowToastClose : true,
+	                            showHideTransition : 'fade',
+	                            icon : 'success',
+	                            loader : false
+	                        });
+
+                            $('#modalDelete').modal('toggle');
+                        }
+                        else{
+                        	$.toast({
+	                            heading: 'Error',
+	                            text : response.message,
+	                            position : 'top-right',
+	                            allowToastClose : true,
+	                            showHideTransition : 'fade',
+	                            icon : 'error',
+	                            loader : false
+	                        });
                         }
                         $('#modalDelete button[type=submit]').button('reset');
                         $('#formDelete')[0].reset();
@@ -424,16 +378,24 @@
                     error: function(response){
                         if (response.status === 400 || response.status === 422) {
                             // Bad Client Request
-                            swal({
-                                title: "Gagal",
-                                text: response.responseJSON.message,
-                                icon: "error",
+                            $.toast({
+                                heading: 'Error',
+                                text : response.responseJSON.message,
+                                position : 'top-right',
+                                allowToastClose : true,
+                                showHideTransition : 'fade',
+                                icon : 'error',
+                                loader : false
                             });
                         } else {
-                            swal({
-                                title: "Gagal",
-                                text: "Whoops, looks like something went wrong.",
-                                icon: "error",
+                            $.toast({
+                                heading: 'Error',
+                                text : "Whoops, looks like something went wrong.",
+                                position : 'top-right',
+                                allowToastClose : true,
+                                showHideTransition : 'fade',
+                                icon : 'error',
+                                loader : false
                             });
                         }
 
@@ -441,33 +403,6 @@
                     }
                 });
             });
-
-            // View
-            $('#data_table').on('click', '.view-btn', function(e){
-                $('#modalView .modal-title').text("Lihat Slider");
-
-                var aData = JSON.parse($(this).parent().parent().attr('data'));
-
-                $('#modalView #title').text(aData.title);
-                if ( aData.image != null ) {
-                    $('#modalView #image img').attr("src", "{{ asset('storage/')}}" + "/" + aData.image);
-                } else {
-                    $('#modalView #image img').attr("src", "{{ asset('images/book.jpg') }}");
-                }
-                $('#modalView #message').text(aData.message);
-                $('#modalView #quantity').text(aData.quantity);
-
-                if (aData.status == 'pending') {
-                    $('#modalView #status').text("Tertunda");
-                } else if( aData.status == 'approve' ){
-                    $('#modalView #status').text("Diterima");
-                } else {
-                    $('#modalView #status').text("Ditolak");
-                }
-
-                $('#modalView').modal('show');
-            });
         });
     </script>
 @endsection
-

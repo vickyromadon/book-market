@@ -24,4 +24,9 @@ class Cart extends Model
     {
         return $this->belongsTo('App\Models\Product');
     }
+
+    public function invoice_carts()
+    {
+        return $this->hasMany('App\Models\InvoiceCart');
+    }
 }

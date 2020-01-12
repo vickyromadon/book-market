@@ -53,7 +53,10 @@
                             </tbody>
                         </table>
                     </div>
-		        </div>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-info btn-sm pull-right" id="btnCheckout"><i class="fa fa-money"></i> Lanjut Pembayaran</a>
+				</div>
 		    </div>
 		</div>
     </div>
@@ -113,6 +116,35 @@
 
                     <div class="modal-body">
                         <p id="del-success">Anda yakin ingin menghapus Produk ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+                            Tidak
+                        </button>
+                        <button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i>">
+                            Ya
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- checkout -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalCheckout">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="#" method="post" id="formCheckout">
+                    {{ csrf_field() }}
+                    <div class="modal-header">
+                        <h4 class="modal-title">Lanjut Pembayaran</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p id="del-success">Anda yakin ingin melanjutkan pembayaran ?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
@@ -294,6 +326,11 @@
                         $('#formDelete button[type=submit]').button('reset');
                     }
                 });
+            });
+
+            // checkout
+            $('#btnCheckout').click(function () {
+                $('#modalCheckout').modal('show');
             });
         });
     </script>

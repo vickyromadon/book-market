@@ -99,12 +99,13 @@
                 </div>
             </div>
 
+            @if( Auth::user() )
             <hr>
-
             <button id="btnCart" class="btn btn-warning col-lg-12">
                 <i class="fa fa-cart-plus"></i>
                 Tambah Keranjang
             </button>
+            @endif
         </div>
     </div>
 

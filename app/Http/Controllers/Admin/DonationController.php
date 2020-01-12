@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Donation;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class DonationController extends Controller
 {
@@ -71,6 +71,10 @@ class DonationController extends Controller
         $donation->status = "approve";
 
         if ($donation->save()) {
+            $user           = User::find($donation->user_id);
+            $user->point   += env('POINT_DONATION') * $donation->quantity;
+            $user->save();
+
             return response()->json([
                 'success'   => true,
                 'message'   => 'Berhasil Disetujui'

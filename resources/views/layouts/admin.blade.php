@@ -204,7 +204,20 @@
                     </li>
                     <li class="{{(Request::segment(2) == 'donation') ? "active" : ""}}">
                         <a href="{{ route('admin.donation.index') }}">
-                            <i class="fa fa-book"></i> <span>Donasi</span>
+                            <i class="fa fa-book"></i>
+                            <span>
+                                Donasi
+                                <span class="pull-right-container">
+                                    <span class="label label-primary pull-right">
+                                        {{ \App\Models\Donation::where('status', '=', 'pending')->count() }}
+                                    </span>
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="{{(Request::segment(2) == 'voucher') ? "active" : ""}}">
+                        <a href="{{ route('admin.voucher.index') }}">
+                            <i class="fa fa-credit-card"></i> <span>Voucher</span>
                         </a>
                     </li>
                 </ul>

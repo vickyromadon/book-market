@@ -19,4 +19,14 @@ class Location extends Model
     {
         return $this->hasOne('App\Models\Store');
     }
+
+    public function depatures()
+    {
+        return $this->hasMany('App\Models\Invoice', 'depature_location_id', 'id');
+    }
+
+    public function destinations()
+    {
+        return $this->hasMany('App\Models\Invoice', 'destination_location_id', 'id');
+    }
 }

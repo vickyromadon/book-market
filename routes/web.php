@@ -53,6 +53,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('cart',             'CartController', ['only' => [
         'update', 'destroy'
     ]]);
+
+    // voucher
+    Route::get('voucher',       'VoucherController@index')->name('voucher.index');
+    Route::get('voucher/me',    'VoucherController@me')->name('voucher.me');
+    Route::post('voucher/add',  'VoucherController@store')->name('voucher.store');
 });
 
 Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
@@ -166,5 +171,12 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
         ]]);
         Route::post('donation/approve',               'DonationController@approve')->name('donation.approve');
         Route::post('donation/reject',                'DonationController@reject')->name('donation.reject');
+
+        // voucher
+        Route::match(['get', 'post'], 'voucher',   'VoucherController@index')->name('voucher.index');
+        Route::post('voucher/add',                 'VoucherController@store')->name('voucher.store');
+        Route::resource('voucher',                 'VoucherController', ['only' => [
+            'update', 'destroy',
+        ]]);
     });
 });

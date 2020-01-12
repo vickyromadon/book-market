@@ -52,6 +52,12 @@
                     <li class="nav-item">
                         <a href="{{ route('message.index') }}" class="nav-link">Kontak</a>
                     </li>
+
+                    @if( Auth::user() )
+                    <li class="nav-item">
+                        <a href="{{ route('voucher.index') }}" class="nav-link">Voucher</a>
+                    </li>
+                    @endif
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     @if( !Auth::user() )
@@ -66,11 +72,17 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <b style="color:green;"><i class="fa fa-life-ring"></i> {{ number_format(Auth::user()->point) }}</b>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('cart.index') }}">
-                            <i class="fa fa-cart-plus"></i>
-                            <span style="color:yellow;">
+                            <b style="color:yellow;">
+                                <i class="fa fa-cart-plus"></i>
                                 {{ \App\Models\Cart::where('user_id', '=', Auth::user()->id)->where('status', '=', 'pending')->count() }}
-                            </span>
+                            </b>
                         </a>
                     </li>
 
@@ -79,6 +91,7 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="{{ route('profile.index') }}" class="dropdown-item">Profile</a>
                             <a href="{{ route('donation.index') }}" class="dropdown-item">Donasi Buku</a>
+                            <a href="{{ route('voucher.me') }}" class="dropdown-item">Voucher Saya</a>
 
                             <div class="dropdown-divider"></div>
 
