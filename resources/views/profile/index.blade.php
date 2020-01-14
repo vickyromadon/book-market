@@ -605,7 +605,6 @@
                     ;
                 }
             });
-
             $('#formLocation').submit(function (event) {
                 event.preventDefault();
     		 	$('#formLocation button[type=submit]').button('loading');
@@ -684,9 +683,12 @@
 
             // Balance
             $(document).ready( function () {
-                $('#table_balance').DataTable();
+                $('#table_balance').DataTable({
+                    "language": {
+                        "emptyTable": "Tidak Ada Data Tersedia",
+                    },
+                });
             });
-
             $('#formBalance').submit(function (event) {
                 event.preventDefault();
                 $('#formBalance button[type=submit]').button('loading');

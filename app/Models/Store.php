@@ -29,4 +29,9 @@ class Store extends Model
     {
         return $this->hasMany('App\Models\Cart');
     }
+
+    public function invoices()
+    {
+        return $this->hasMany('App\Models\Invoice');
+    }
 }

@@ -34,7 +34,11 @@
                                 @for ($i = 0; $i < count($cart); $i++)
                                     <tr>
                                         <td>{{ $i + 1 }}</td>
-                                        <td>{{ $cart[$i]->product->title }}</td>
+                                        <td>
+                                            <a href="{{ route('product.detail', ['id' => $cart[$i]->product->id]) }}">
+                                                {{ $cart[$i]->product->title }}
+                                            </a>
+                                        </td>
                                         <td>
                                             @if ($cart[$i]->product->image != null)
                                                 <img class="img-fluid rounded" src="{{ asset('storage/'. $cart[$i]->product->image)}}" style="width:150px; height:150px;">
@@ -50,13 +54,25 @@
                                         </td>
                                     </tr>
                                 @endfor
+                                @if ( count($cart) > 0 )
+                                    <tr>
+                                        <td colspan="4">
+                                            <h3>Total</h3>
+                                        </td>
+                                        <td colspan="2">
+                                            <h3>Rp. {{ number_format($total_cart) }}</h3>
+                                        </td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-info btn-sm pull-right" id="btnCheckout"><i class="fa fa-money"></i> Lanjut Pembayaran</a>
-				</div>
+                @if ( count($cart) > 0 )
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-info btn-sm pull-right" id="btnCheckout"><i class="fa fa-money"></i> Lanjut Pembayaran</a>
+                    </div>
+                @endif
 		    </div>
 		</div>
     </div>
@@ -164,7 +180,11 @@
 	<script>
         jQuery(document).ready(function($){
             $(document).ready( function () {
-                $('#data_table').DataTable();
+                $('#data_table').DataTable({
+                    "language": {
+                        "emptyTable": "Tidak Ada Data Tersedia",
+                    }
+                });
             });
 
             // Edit
@@ -331,6 +351,61 @@
             // checkout
             $('#btnCheckout').click(function () {
                 $('#modalCheckout').modal('show');
+            });
+
+            $('#formCheckout').submit(function (event) {
+                event.preventDefault();
+
+                $('#modalCheckout button[type=submit]').button('loading');
+                var _data = $("#formCheckout").serialize();
+
+                $.ajax({
+                    url: '{{ route("invoice.store") }}',
+                    type: 'POST',
+                    data: _data,
+                    dataType: 'json',
+                    cache: false,
+
+                    success: function (response) {
+                        if (response.success) {
+                            swal({
+                                title: "Sukses",
+                                text: response.message,
+                                icon: "success",
+                            });
+
+                            setTimeout(function () {
+    	                        location.reload();
+    	                    }, 2000);
+                        } else {
+                            swal({
+                                title: "Gagal",
+                                text: response.message,
+                                icon: "error",
+                            });
+                        }
+                        $('#modalCheckout button[type=submit]').button('reset');
+                        $('#formCheckout')[0].reset();
+                    },
+                    error: function(response){
+                        if (response.status === 400 || response.status === 422) {
+                            // Bad Client Request
+                            swal({
+                                title: "Gagal",
+                                text: response.responseJSON.message,
+                                icon: "error",
+                            });
+                        } else {
+                            swal({
+                                title: "Gagal",
+                                text: "Whoops, looks like something went wrong.",
+                                icon: "error",
+                            });
+                        }
+
+                        $('#formCheckout button[type=submit]').button('reset');
+                    }
+                });
             });
         });
     </script>

@@ -9,10 +9,16 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
+        $cart = Cart::where('user_id', '=', Auth::user()->id)->where('status', '=', 'pending')->orderBy('created_at', 'desc')->get();
+        $totalCart = 0;
+        foreach ($cart as $item) {
+            $totalCart += $item->price;
+        }
         return $this->view([
-            'cart' => Cart::where('user_id', '=', Auth::user()->id)->where('status', '=', 'pending')->orderBy('created_at', 'desc')->get()
+            'cart' => $cart,
+            'total_cart' => $totalCart,
         ]);
     }
 

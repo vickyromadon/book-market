@@ -92,6 +92,7 @@
                             <a href="{{ route('profile.index') }}" class="dropdown-item">Profile</a>
                             <a href="{{ route('donation.index') }}" class="dropdown-item">Donasi Buku</a>
                             <a href="{{ route('voucher.me') }}" class="dropdown-item">Voucher Saya</a>
+                            <a href="{{ route('invoice.index') }}" class="dropdown-item">Transaksi</a>
 
                             <div class="dropdown-divider"></div>
 

@@ -20,6 +20,11 @@ class Invoice extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function store()
+    {
+        return $this->belongsTo('App\Models\Store');
+    }
+
     public function depature_location()
     {
         return $this->belongsTo('App\Models\Location', 'depature_location_id', 'id');
@@ -28,5 +33,10 @@ class Invoice extends Model
     public function destination_location()
     {
         return $this->belongsTo('App\Models\Location', 'destination_location_id', 'id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany('App\Models\Payment');
     }
 }

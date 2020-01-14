@@ -305,6 +305,13 @@
                     },
                     {
                         "data": "publisher",
+                        render : function(data, type, row){
+                            if (data == null) {
+                                return "-"
+                            } else {
+                                return data;
+                            }
+                        },
                         "orderable": true,
                     },
                     {

@@ -58,6 +58,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('voucher',       'VoucherController@index')->name('voucher.index');
     Route::get('voucher/me',    'VoucherController@me')->name('voucher.me');
     Route::post('voucher/add',  'VoucherController@store')->name('voucher.store');
+
+    // invoice
+    Route::get('invoice',                                   'InvoiceController@index')->name('invoice.index');
+    Route::post('invoice/add',                              'InvoiceController@store')->name('invoice.store');
+
+    Route::get('invoice/pending/{id}',                      'InvoiceController@pending')->name('invoice.pending');
+    Route::get('invoice/waiting-store/{id}',                'InvoiceController@waitingStore')->name('invoice.waiting-store');
+    Route::get('invoice/canceled/{id}',                     'InvoiceController@canceled')->name('invoice.canceled');
+
+    Route::post('invoice/destination-location-new',         'InvoiceController@destinationLocationNew')->name('invoice.destination-location-new');
+    Route::post('invoice/destination-location-now',         'InvoiceController@destinationLocationNow')->name('invoice.destination-location-now');
+    Route::post('invoice/payment',                          'InvoiceController@payment')->name('invoice.payment');
+    Route::post('invoice/cancel',                           'InvoiceController@cancel')->name('invoice.cancel');
 });
 
 Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
@@ -77,6 +90,26 @@ Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
         Route::post('product/add',                 'ProductController@store')->name('product.store');
         Route::resource('product',                 'ProductController', ['only' => [
             'update', 'destroy',
+        ]]);
+
+        // order-entry
+        Route::match(['get', 'post'], 'order-entry',    'OrderEntryController@index')->name('order-entry.index');
+        Route::resource('order-entry',                  'OrderEntryController', ['only' => [
+            'show'
+        ]]);
+        Route::post('order-entry/approve',              'OrderEntryController@approve')->name('order-entry.approve');
+        Route::post('order-entry/reject',               'OrderEntryController@reject')->name('order-entry.reject');
+
+        // order-shipped
+        Route::match(['get', 'post'], 'order-shipped',    'OrderShippedController@index')->name('order-shipped.index');
+        Route::resource('order-shipped',                  'OrderShippedController', ['only' => [
+            'show'
+        ]]);
+
+        // order-declined
+        Route::match(['get', 'post'], 'order-declined',    'OrderDeclinedController@index')->name('order-declined.index');
+        Route::resource('order-declined',                  'OrderDeclinedController', ['only' => [
+            'show'
         ]]);
     });
 });
