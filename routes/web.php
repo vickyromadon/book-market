@@ -66,6 +66,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('invoice/pending/{id}',                      'InvoiceController@pending')->name('invoice.pending');
     Route::get('invoice/waiting-store/{id}',                'InvoiceController@waitingStore')->name('invoice.waiting-store');
     Route::get('invoice/canceled/{id}',                     'InvoiceController@canceled')->name('invoice.canceled');
+    Route::get('invoice/order-shipped/{id}',                'InvoiceController@orderShipped')->name('invoice.order-shipped');
+    Route::get('invoice/order-reject/{id}',                 'InvoiceController@orderReject')->name('invoice.order-reject');
 
     Route::post('invoice/destination-location-new',         'InvoiceController@destinationLocationNew')->name('invoice.destination-location-new');
     Route::post('invoice/destination-location-now',         'InvoiceController@destinationLocationNow')->name('invoice.destination-location-now');

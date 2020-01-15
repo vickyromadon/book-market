@@ -21,9 +21,11 @@ class InvoiceController extends Controller
     public function index()
     {
         return $this->view([
-            'invoice_pending' => Invoice::where('user_id', Auth::user()->id)->where('status', "pending")->get(),
-            'invoice_payment' => Invoice::where('user_id', Auth::user()->id)->where('status', "payment")->get(),
-            'invoice_cancel' => Invoice::where('user_id', Auth::user()->id)->where('status', "cancel")->get(),
+            'invoice_pending'   => Invoice::where('user_id', Auth::user()->id)->where('status', "pending")->get(),
+            'invoice_payment'   => Invoice::where('user_id', Auth::user()->id)->where('status', "payment")->get(),
+            'invoice_cancel'    => Invoice::where('user_id', Auth::user()->id)->where('status', "cancel")->get(),
+            'invoice_approve'   => Invoice::where('user_id', Auth::user()->id)->where('status', "approve")->get(),
+            'invoice_reject'    => Invoice::where('user_id', Auth::user()->id)->where('status', "reject")->get(),
         ]);
     }
 
@@ -45,6 +47,38 @@ class InvoiceController extends Controller
             'province'      => Province::all(),
             'district'      => District::all(),
             'sub_district'  => SubDistrict::all(),
+        ]);
+    }
+
+    public function canceled($id)
+    {
+        $invoice = Invoice::find($id);
+        return $this->view([
+            'invoice'       => $invoice
+        ]);
+    }
+
+    public function orderShipped($id)
+    {
+        $invoice = Invoice::find($id);
+        return $this->view([
+            'invoice'       => $invoice
+        ]);
+    }
+
+    public function orderReject($id)
+    {
+        $invoice = Invoice::find($id);
+        return $this->view([
+            'invoice'       => $invoice
+        ]);
+    }
+
+    public function waitingStore($id)
+    {
+        $invoice = Invoice::find($id);
+        return $this->view([
+            'invoice'       => $invoice
         ]);
     }
 

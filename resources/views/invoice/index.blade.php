@@ -26,6 +26,12 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#cancel">Dibatalkan</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#approve">Sedang Dikirim</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#reject">Ditolak</a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -125,6 +131,70 @@
                         </div>
                     </div>
                 </div>
+                <div id="approve" class="container tab-pane fade"><br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body table-responsive">
+                                    <div class="table-responsive">
+                                        <table id="data_table_invoice_approve" class="table table-striped table-bordered nowrap" style="width:100%">
+                                            <thead class="thead-light">
+                                                <tr >
+                                                    <th class="center">No</th>
+                                                    <th class="text-center">Nomor Invoice</th>
+                                                    <th class="center text-center">Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for ($i = 0; $i < count($invoice_approve); $i++)
+                                                    <tr>
+                                                        <td>{{ $i + 1 }}</td>
+                                                        <td>{{ $invoice_approve[$i]->number }}</td>
+                                                        <td>
+                                                            <a href="{{ route('invoice.order-shipped', ['id' => $invoice_approve[$i]->id]) }}" class="edit-btn btn btn-xs btn-info"><i class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                @endfor
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="reject" class="container tab-pane fade"><br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body table-responsive">
+                                    <div class="table-responsive">
+                                        <table id="data_table_invoice_reject" class="table table-striped table-bordered nowrap" style="width:100%">
+                                            <thead class="thead-light">
+                                                <tr >
+                                                    <th class="center">No</th>
+                                                    <th class="text-center">Nomor Invoice</th>
+                                                    <th class="center text-center">Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for ($i = 0; $i < count($invoice_reject); $i++)
+                                                    <tr>
+                                                        <td>{{ $i + 1 }}</td>
+                                                        <td>{{ $invoice_reject[$i]->number }}</td>
+                                                        <td>
+                                                            <a href="{{ route('invoice.order-shipped', ['id' => $invoice_reject[$i]->id]) }}" class="edit-btn btn btn-xs btn-info"><i class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                @endfor
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -144,6 +214,16 @@
                 },
             });
             $('#data_table_invoice_cancel').DataTable({
+                "language": {
+                    "emptyTable": "Tidak Ada Data Tersedia",
+                },
+            });
+            $('#data_table_invoice_approve').DataTable({
+                "language": {
+                    "emptyTable": "Tidak Ada Data Tersedia",
+                },
+            });
+            $('#data_table_invoice_reject').DataTable({
                 "language": {
                     "emptyTable": "Tidak Ada Data Tersedia",
                 },

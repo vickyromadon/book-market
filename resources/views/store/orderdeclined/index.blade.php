@@ -74,7 +74,7 @@
                     },
                     {
                         render : function(data, type, row){
-                            return '<a href="{{ route('store.order-entry.index') }}/'+ row.id +'" class="btn btn-xs btn-info"><i class="fa fa-eye"></i></a>';
+                            return '<a href="{{ route('store.order-declined.index') }}/'+ row.id +'" class="btn btn-xs btn-info"><i class="fa fa-eye"></i></a>';
                         },
                         "width": "10%",
                         "orderable": false,

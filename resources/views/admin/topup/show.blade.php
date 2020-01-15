@@ -58,8 +58,8 @@
                 </div>
                 @if ( $data->status == "pending" )
                     <div class="box-footer">
-                        <button class="btn btn-danger pull-left" id="btnReject"><i class="fa fa-check"></i> Tolak</button>
-                        <button class="btn btn-success pull-right" id="btnApprove"><i class="fa fa-close "></i> Setujui</button>
+                        <button class="btn btn-danger pull-left" id="btnReject"><i class="fa fa-close"></i> Tolak</button>
+                        <button class="btn btn-success pull-right" id="btnApprove"><i class="fa fa-check "></i> Setujui</button>
                     </div>
                 @endif
             </div>
