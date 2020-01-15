@@ -68,11 +68,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('invoice/canceled/{id}',                     'InvoiceController@canceled')->name('invoice.canceled');
     Route::get('invoice/order-shipped/{id}',                'InvoiceController@orderShipped')->name('invoice.order-shipped');
     Route::get('invoice/order-reject/{id}',                 'InvoiceController@orderReject')->name('invoice.order-reject');
+    Route::get('invoice/received/{id}',                     'InvoiceController@received')->name('invoice.received');
 
     Route::post('invoice/destination-location-new',         'InvoiceController@destinationLocationNew')->name('invoice.destination-location-new');
     Route::post('invoice/destination-location-now',         'InvoiceController@destinationLocationNow')->name('invoice.destination-location-now');
     Route::post('invoice/payment',                          'InvoiceController@payment')->name('invoice.payment');
     Route::post('invoice/cancel',                           'InvoiceController@cancel')->name('invoice.cancel');
+    Route::post('invoice/confirm-shipped',                  'InvoiceController@confirmShipped')->name('invoice.confirm-shipped');
+    Route::post('invoice/use-voucher',                      'InvoiceController@useVoucher')->name('invoice.use-voucher');
 });
 
 Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
@@ -111,6 +114,12 @@ Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
         // order-declined
         Route::match(['get', 'post'], 'order-declined',    'OrderDeclinedController@index')->name('order-declined.index');
         Route::resource('order-declined',                  'OrderDeclinedController', ['only' => [
+            'show'
+        ]]);
+
+        // order-received
+        Route::match(['get', 'post'], 'order-received',    'OrderReceivedController@index')->name('order-received.index');
+        Route::resource('order-received',                  'OrderReceivedController', ['only' => [
             'show'
         ]]);
     });

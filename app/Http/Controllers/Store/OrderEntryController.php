@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\Payment;
+use App\Models\UserVoucher;
+use App\Models\User;
 use App\Models\Store;
 use Illuminate\Support\Facades\Auth;
 
@@ -87,6 +90,27 @@ class OrderEntryController extends Controller
         $invoice->status = "reject";
 
         if ($invoice->save()) {
+            $payment                    = new Payment();
+            $payment->nominal           = $invoice->total;
+            $payment->beginning_balance = $invoice->user->balance;
+            $payment->ending_balance    = $invoice->user->balance + $invoice->total;
+            $payment->status            = "refund";
+            $payment->user_id           = $invoice->user->id;
+            $payment->invoice_id        = $invoice->id;
+            $payment->discount          = $invoice->discount;
+            $payment->save();
+
+            $user           = User::find($invoice->user->id);
+            $user->balance  += ($invoice->total);
+            $user->save();
+
+            if ($invoice->voucher_id != null) {
+                $userVoucher                = new UserVoucher();
+                $userVoucher->voucher_id    = $invoice->voucher_id;
+                $userVoucher->user_id       = $invoice->user_id;
+                $userVoucher->Save();
+            }
+
             return response()->json([
                 'success'   => true,
                 'message'   => 'Berhasil Ditolak'

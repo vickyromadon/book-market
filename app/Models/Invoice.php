@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     protected $fillable = [
-        'number', 'status', 'shipping', 'subtotal', 'total'
+        'number', 'status', 'shipping', 'subtotal', 'total', 'discount'
     ];
 
     public function invoice_carts()
@@ -38,5 +38,10 @@ class Invoice extends Model
     public function payments()
     {
         return $this->hasMany('App\Models\Payment');
+    }
+
+    public function voucher()
+    {
+        return $this->belongsTo('App\Models\Voucher');
     }
 }

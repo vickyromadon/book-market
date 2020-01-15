@@ -86,7 +86,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validator = $request->validate([
-            'title'         => 'required|string|max:191',
+            'title'         => 'required|string|max:20',
             'description'   => 'required|string',
             'publisher'     => 'required|string',
             'quantity'      => 'required|numeric',
@@ -136,7 +136,7 @@ class ProductController extends Controller
     public function update(Request $request)
     {
         $validator = $request->validate([
-            'title'         => 'required|string|max:191',
+            'title'         => 'required|string|max:20',
             'description'   => 'required|string',
             'publisher'     => 'required|string',
             'quantity'      => 'required|numeric',

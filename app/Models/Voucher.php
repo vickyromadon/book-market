@@ -14,4 +14,9 @@ class Voucher extends Model
     {
         return $this->hasMany('App\Models\UserVoucher');
     }
+
+    public function invoices()
+    {
+        return $this->hasMany('App\Models\invoice');
+    }
 }

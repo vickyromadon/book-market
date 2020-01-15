@@ -32,6 +32,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#reject">Ditolak</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#received">Diterima</a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -183,7 +186,39 @@
                                                         <td>{{ $i + 1 }}</td>
                                                         <td>{{ $invoice_reject[$i]->number }}</td>
                                                         <td>
-                                                            <a href="{{ route('invoice.order-shipped', ['id' => $invoice_reject[$i]->id]) }}" class="edit-btn btn btn-xs btn-info"><i class="fa fa-eye"></i></a>
+                                                            <a href="{{ route('invoice.order-reject', ['id' => $invoice_reject[$i]->id]) }}" class="edit-btn btn btn-xs btn-info"><i class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                @endfor
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="received" class="container tab-pane fade"><br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body table-responsive">
+                                    <div class="table-responsive">
+                                        <table id="data_table_invoice_received" class="table table-striped table-bordered nowrap" style="width:100%">
+                                            <thead class="thead-light">
+                                                <tr >
+                                                    <th class="center">No</th>
+                                                    <th class="text-center">Nomor Invoice</th>
+                                                    <th class="center text-center">Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for ($i = 0; $i < count($invoice_received); $i++)
+                                                    <tr>
+                                                        <td>{{ $i + 1 }}</td>
+                                                        <td>{{ $invoice_received[$i]->number }}</td>
+                                                        <td>
+                                                            <a href="{{ route('invoice.received', ['id' => $invoice_received[$i]->id]) }}" class="edit-btn btn btn-xs btn-info"><i class="fa fa-eye"></i></a>
                                                         </td>
                                                     </tr>
                                                 @endfor

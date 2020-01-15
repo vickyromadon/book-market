@@ -131,6 +131,14 @@
                         </td>
                         <td>Rp. {{ number_format($invoice->shipping) }}</td>
                     </tr>
+                    <tr style="font-size:20px;">
+                        <td colspan="3">
+                            Potongan Harga
+                        </td>
+                        <td>
+                            Rp. {{ number_format($invoice->discount) }}
+                        </td>
+                    </tr>
                     <tr style="font-size:25px;">
                         <td colspan="3">
                             Total

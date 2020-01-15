@@ -157,6 +157,17 @@
                         </td>
                         <td>Rp. {{ number_format($invoice->shipping) }}</td>
                     </tr>
+                    <tr style="font-size:20px;">
+                        <td colspan="3">
+                            Potongan Harga
+                        </td>
+                        <td>
+                            Rp. {{ number_format($invoice->discount) }}
+                            @if ($invoice->voucher_id == null && $invoice->status == "pending")
+                                <a href="#" class="btn btn-outline-warning" id="btnVoucher"><i class="fa fa-plus"></i> Voucher</a>
+                            @endif
+                        </td>
+                    </tr>
                     <tr style="font-size:25px;">
                         <td colspan="3">
                             Total
@@ -346,6 +357,50 @@
                         </button>
                         <button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i>">
                             Ya
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- add voucher -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalVoucher">
+        <div class="modal-dialog" role="document" style="width: 100%;">
+            <div class="modal-content">
+                <form action="#" method="#" id="formVoucher" enctype="multipart/form-data" autocomplete="off">
+                    <div class="modal-header">
+                        <h4 class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="id" value="{{ $invoice->id }}">
+                            <div class="form-group">
+                                <label class="col-sm-12 control-label">Silahkan gunakan voucher yang anda miliki. Untuk mendapatkan potongan harga.</label>
+                                <div class="col-sm-12">
+                                    <select name="voucher_id" id="voucher_id" class="form-control">
+                                        <option value="">-- Pilih Salah Satu --</option>
+                                        @foreach ($invoice->user->user_vouchers as $item)
+                                            <option value="{{ $item->id }}">{{ $item->voucher->name }} potongan harga {{ $item->voucher->discount }}%</option>
+                                        @endforeach
+                                    </select>
+
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Kembali
+                        </button>
+                        <button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i>">
+                            Tambah
                         </button>
                     </div>
                 </form>
@@ -683,6 +738,96 @@
                         }
 
                         $('#formCancel button[type=submit]').button('reset');
+                    }
+                });
+            });
+
+            // voucher
+            $('#btnVoucher').click(function () {
+                $('#formVoucher')[0].reset();
+                $('#formVoucher .modal-title').text("Tambah Voucher");
+                $('#formVoucher div.form-group').removeClass('has-error');
+                $('#formVoucher .help-block').empty();
+                $('#formVoucher button[type=submit]').button('reset');
+
+                $('#formVoucher input[name="_method"]').remove();
+                url = '{{ route("invoice.use-voucher") }}';
+
+                $('#modalVoucher').modal('show');
+            });
+
+            $('#formVoucher').submit(function (event) {
+                event.preventDefault();
+    		 	$('#formVoucher button[type=submit]').button('loading');
+    		 	$('#formVoucher div.form-group').removeClass('has-error');
+    	        $('#formVoucher .help-block').empty();
+
+    		 	var _data = $("#formVoucher").serialize();
+
+    		 	$.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: _data,
+                    cache: false,
+
+                    success: function (response) {
+                        if (response.success) {
+                            swal({
+                                title: "Sukses",
+                                text: response.message,
+                                icon: "success",
+                            });
+
+                            setTimeout(function () {
+    	                        location.reload();
+    	                    }, 1000);
+                        } else {
+                            swal({
+                                title: "Gagal",
+                                text: response.message,
+                                icon: "error",
+                            });
+                        }
+
+                        $('#formVoucher')[0].reset();
+                        $('#formVoucher button[type=submit]').button('reset');
+                    },
+                    error: function(response){
+                    	if (response.status === 422) {
+                            // form validation errors fired up
+                            var error = response.responseJSON.errors;
+                            var data = $('#formVoucher').serializeArray();
+                            $.each(data, function(key, value){
+                                if( error[data[key].name] != undefined ){
+                                    var elem;
+                                    if( $("#formVoucher input[name='" + data[key].name + "']").length )
+                                        elem = $("#formVoucher input[name='" + data[key].name + "']");
+                                    else if( $("#formVoucher textarea[name='" + data[key].name + "']").length )
+                                        elem = $("#formVoucher textarea[name='" + data[key].name + "']");
+                                    else
+                                        elem = $("#formVoucher select[name='" + data[key].name + "']");
+                                    elem.parent().find('.help-block').text(error[data[key].name]);
+                                    elem.parent().find('.help-block').show();
+                                    elem.parent().find('.help-block').css("color", "red");
+                                    elem.parent().parent().addClass('has-error');
+                                }
+                            });
+                        }
+                        else if (response.status === 400) {
+                            swal({
+                                title: "Gagal",
+                                text: response.responseJSON.message,
+                                icon: "error",
+                            });
+                        }
+                        else {
+                            swal({
+                                title: "Gagal",
+                                text: "Whoops, looks like something went wrong.",
+                                icon: "error",
+                            });
+                        }
+                        $('#formVoucher button[type=submit]').button('reset');
                     }
                 });
             });

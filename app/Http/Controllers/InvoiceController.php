@@ -12,6 +12,7 @@ use App\Models\District;
 use App\Models\SubDistrict;
 use App\Models\Location;
 use App\Models\Payment;
+use App\Models\UserVoucher;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,7 @@ class InvoiceController extends Controller
             'invoice_cancel'    => Invoice::where('user_id', Auth::user()->id)->where('status', "cancel")->get(),
             'invoice_approve'   => Invoice::where('user_id', Auth::user()->id)->where('status', "approve")->get(),
             'invoice_reject'    => Invoice::where('user_id', Auth::user()->id)->where('status', "reject")->get(),
+            'invoice_received'  => Invoice::where('user_id', Auth::user()->id)->where('status', "done")->get(),
         ]);
     }
 
@@ -39,7 +41,7 @@ class InvoiceController extends Controller
         }
 
         $invoice->subtotal  = $subTotal;
-        $invoice->total     = $invoice->subtotal + $invoice->shipping;
+        $invoice->total     = ($invoice->subtotal + $invoice->shipping) - $invoice->discount;
         $invoice->save();
 
         return $this->view([
@@ -75,6 +77,14 @@ class InvoiceController extends Controller
     }
 
     public function waitingStore($id)
+    {
+        $invoice = Invoice::find($id);
+        return $this->view([
+            'invoice'       => $invoice
+        ]);
+    }
+
+    public function received($id)
     {
         $invoice = Invoice::find($id);
         return $this->view([
@@ -118,11 +128,18 @@ class InvoiceController extends Controller
         $location->sub_district = SubDistrict::find($request->sub_district)->name;
         $location->save();
 
-        $invoice = Invoice::find($request->invoice_id);
-        $shipping = Shipping::where('to', $location->sub_district)->where('from', $invoice->depature_location->sub_district)->first();
+        $invoice    = Invoice::find($request->invoice_id);
+        $shipping   = Shipping::where('to', $location->sub_district)->where('from', $invoice->depature_location->sub_district)->first();
 
-        $invoice->destination_location_id = $location->id;
-        $invoice->shipping = $shipping->amount;
+        if ( $shipping == null ) {
+            return response()->json([
+                'success'   => false,
+                'message'   => 'Ongkos kirim belum ditentukan, silahkan isi alamat yang lain.'
+            ]);
+        }
+
+        $invoice->destination_location_id   = $location->id;
+        $invoice->shipping                  = $shipping->amount;
 
         if (!$invoice->save()) {
             return response()->json([
@@ -158,11 +175,13 @@ class InvoiceController extends Controller
             $user                       = User::find(Auth::user()->id);
 
             $payment                    = new Payment();
-            $payment->total             = $invoice->total;
+            $payment->nominal           = $invoice->total;
             $payment->beginning_balance = $user->balance;
             $payment->ending_balance    = $user->balance - $invoice->total;
+            $payment->status            = "out";
             $payment->user_id           = $user->id;
             $payment->invoice_id        = $invoice->id;
+            $payment->discount          = $invoice->discount;
             $payment->save();
 
             $user->balance              -= $invoice->total;
@@ -192,9 +211,81 @@ class InvoiceController extends Controller
                 $cart->save();
             }
 
+            if ($invoice->voucher_id != null) {
+                $userVoucher                = new UserVoucher();
+                $userVoucher->voucher_id    = $invoice->voucher_id;
+                $userVoucher->user_id       = $invoice->user_id;
+                $userVoucher->Save();
+            }
+
             return response()->json([
                 'success'  => true,
                 'message'  => 'Berhasil Melakukan Pembatalan'
+            ]);
+        }
+    }
+
+    public function confirmShipped(Request $request){
+        $invoice = Invoice::find($request->id);
+        $invoice->status = "done";
+
+        if (!$invoice->save()) {
+            return response()->json([
+                'success'   => false,
+                'message'   => 'Gagal Konfirmasi'
+            ]);
+        } else {
+            $payment                    = new Payment();
+            $payment->nominal           = $invoice->total;
+            $payment->beginning_balance = $invoice->store->user->balance;
+            $payment->ending_balance    = $invoice->store->user->balance + $invoice->total + $invoice->discount;
+            $payment->status            = "in";
+            $payment->user_id           = $invoice->store->user_id;
+            $payment->invoice_id        = $invoice->id;
+            $payment->discount          = $invoice->discount;
+            $payment->save();
+
+            $userSell           = User::find($invoice->store->user_id);
+            $userSell->balance  += $invoice->total + $invoice->discount;
+            $userSell->save();
+
+            $userBuy = User::find($invoice->user_id);
+            $userBuy->point += env('POINT_BUY') * ceil($invoice->subtotal / env('MULTIPLE_BUY'));
+            $userBuy->save();
+
+            return response()->json([
+                'success'  => true,
+                'message'  => 'Berhasil Konfirmasi'
+            ]);
+        }
+    }
+
+    public function useVoucher(Request $request){
+        $validator = $request->validate([
+            'voucher_id'        => 'required|numeric',
+        ]);
+
+        $invoice        = Invoice::find($request->id);
+        $userVoucher    = UserVoucher::find($request->voucher_id);
+
+        $voucher    = $userVoucher->voucher->discount;
+        $subtotal   = $invoice->subtotal;
+        $discount   = $subtotal - ($subtotal * ($voucher/100));
+
+        $invoice->voucher_id    = $userVoucher->voucher->id;
+        $invoice->discount      = $discount;
+
+        if ($invoice->save()) {
+            $userVoucher->delete();
+
+            return response()->json([
+                'success'  => true,
+                'message'  => 'Berhasil Menggunakan Voucher'
+            ]);
+        } else {
+            return response()->json([
+                'success'  => false,
+                'message'  => 'Gagal Menggunakan Voucher'
             ]);
         }
     }

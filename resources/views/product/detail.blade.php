@@ -20,9 +20,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     @if ($product->image != null)
-                        <img class="img-fluid rounded" src="{{ asset('storage/'. $product->image)}}" style="width:100%;">
+                        <img class="img-fluid rounded" src="{{ asset('storage/'. $product->image)}}" style="width:100%; height:500px;">
                     @else
-                        <img class="img-fluid rounded" src="{{ asset('images/book.jpg') }}" style="width:100%;">
+                        <img class="img-fluid rounded" src="{{ asset('images/book.jpg') }}" style="width:100%; height:500px;">
                     @endif
                 </div>
             </div>

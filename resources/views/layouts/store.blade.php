@@ -57,6 +57,7 @@
                         <a href="{{ route('store.order-entry.index') }}" class="list-group-item {{(Request::segment(2) == 'order-entry') ? "active" : ""}}"><i class="fa fa-cube"></i> Pesanan Masuk</a>
                         <a href="{{ route('store.order-shipped.index') }}" class="list-group-item {{(Request::segment(2) == 'order-shipped') ? "active" : ""}}"><i class="fa fa-car"></i> Pesanan Dikirim</a>
                         <a href="{{ route('store.order-declined.index') }}" class="list-group-item {{(Request::segment(2) == 'order-declined') ? "active" : ""}}"><i class="fa fa-times-circle"></i> Pesanan Ditolak</a>
+                        <a href="{{ route('store.order-received.index') }}" class="list-group-item {{(Request::segment(2) == 'order-received') ? "active" : ""}}"><i class="fa fa-truck"></i> Pesanan Diterima</a>
                     @endif
                 </div>
             </div>

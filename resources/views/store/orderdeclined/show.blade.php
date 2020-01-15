@@ -112,6 +112,10 @@
                                     <th>Rp. {{ number_format($data->shipping) }}</th>
                                 </tr>
                                 <tr>
+                                    <th colspan="2">Potongan Harga</th>
+                                    <th>Rp. {{ number_format($data->discount) }}</th>
+                                </tr>
+                                <tr>
                                     <th colspan="2">Total</th>
                                     <th>Rp. {{ number_format($data->total) }}</th>
                             </tfoot>

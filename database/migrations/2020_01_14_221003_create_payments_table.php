@@ -15,10 +15,10 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('total');
+            $table->bigInteger('nominal');
             $table->bigInteger('beginning_balance');
             $table->bigInteger('ending_balance');
-            $table->enum('status', ['approve', 'refund'])->default('approve');
+            $table->enum('status', ['in', 'out', 'refund']);
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
