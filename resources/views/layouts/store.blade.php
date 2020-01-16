@@ -29,6 +29,11 @@
                 <ul class="navbar-nav ml-auto">
                     @if( Auth::user() )
                     <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <b style="color:red;"><i class="fa fa-money"></i> Rp. {{ number_format(Auth::user()->balance) }}</b>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('store.profile.index') }}">Profile</a>
                     </li>
                     <li class="nav-item">
@@ -53,6 +58,8 @@
                 <div class="list-group">
                     <a href="{{ route('store.index') }}" class="list-group-item {{(Request::segment(2) == '') ? "active" : ""}}"><i class="fa fa-dashboard"></i> Dashboard</a>
                     @if ( $checkStore != null )
+                        <a href="{{ route('store.bank.index') }}" class="list-group-item {{(Request::segment(2) == 'bank') ? "active" : ""}}"><i class="fa fa-bank"></i> Bank</a>
+                        <a href="{{ route('store.withdraw.index') }}" class="list-group-item {{(Request::segment(2) == 'withdraw') ? "active" : ""}}"><i class="fa fa-dollar"></i> Penarikan Saldo</a>
                         <a href="{{ route('store.product.index') }}" class="list-group-item {{(Request::segment(2) == 'product') ? "active" : ""}}"><i class="fa fa-cubes"></i> Produk</a>
                         <a href="{{ route('store.order-entry.index') }}" class="list-group-item {{(Request::segment(2) == 'order-entry') ? "active" : ""}}"><i class="fa fa-cube"></i> Pesanan Masuk</a>
                         <a href="{{ route('store.order-shipped.index') }}" class="list-group-item {{(Request::segment(2) == 'order-shipped') ? "active" : ""}}"><i class="fa fa-car"></i> Pesanan Dikirim</a>

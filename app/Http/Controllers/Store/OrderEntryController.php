@@ -9,6 +9,7 @@ use App\Models\Payment;
 use App\Models\UserVoucher;
 use App\Models\User;
 use App\Models\Store;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
 class OrderEntryController extends Controller
@@ -72,6 +73,13 @@ class OrderEntryController extends Controller
         $invoice->status = "approve";
 
         if ($invoice->save()) {
+            foreach ($invoice->invoice_carts as $item) {
+                $product            = Product::find($item->cart->product->id);
+                $product->sold      += $item->cart->quantity;
+                $product->quantity  -= $item->cart->quantity;
+                $product->save();
+            }
+
             return response()->json([
                 'success'   => true,
                 'message'   => 'Berhasil Disetujui'

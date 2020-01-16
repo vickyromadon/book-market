@@ -12,6 +12,7 @@ use App\Models\District;
 use App\Models\SubDistrict;
 use App\Models\Location;
 use App\Models\TopUp;
+use App\Models\Bank;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,6 +25,7 @@ class ProfileController extends Controller
             'province'      => Province::all(),
             'district'      => District::all(),
             'sub_district'  => SubDistrict::all(),
+            'bank'          => Bank::where('user_id', 1)->get(),
         ]);
     }
 

@@ -122,6 +122,20 @@ Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
         Route::resource('order-received',                  'OrderReceivedController', ['only' => [
             'show'
         ]]);
+
+        // bank
+        Route::match(['get', 'post'], 'bank',   'BankController@index')->name('bank.index');
+        Route::post('bank/add',                 'BankController@store')->name('bank.store');
+        Route::resource('bank',                 'BankController', ['only' => [
+            'update', 'destroy',
+        ]]);
+
+        // withdraw
+        Route::match(['get', 'post'], 'withdraw',   'WithdrawController@index')->name('withdraw.index');
+        Route::post('withdraw/add',                 'WithdrawController@store')->name('withdraw.store');
+        Route::resource('withdraw',                 'WithdrawController', ['only' => [
+            'update', 'destroy',
+        ]]);
     });
 });
 
@@ -220,6 +234,13 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
         Route::match(['get', 'post'], 'voucher',   'VoucherController@index')->name('voucher.index');
         Route::post('voucher/add',                 'VoucherController@store')->name('voucher.store');
         Route::resource('voucher',                 'VoucherController', ['only' => [
+            'update', 'destroy',
+        ]]);
+
+        // bank
+        Route::match(['get', 'post'], 'bank',   'BankController@index')->name('bank.index');
+        Route::post('bank/add',                 'BankController@store')->name('bank.store');
+        Route::resource('bank',                 'BankController', ['only' => [
             'update', 'destroy',
         ]]);
     });

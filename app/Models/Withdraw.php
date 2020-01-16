@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Bank extends Model
+class Withdraw extends Model
 {
     protected $fillable = [
-        'name', 'number', 'owner'
+        'nominal', 'status'
     ];
 
     public function user()
@@ -15,8 +15,8 @@ class Bank extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function withdraws()
+    public function bank()
     {
-        return $this->hasMany('App\Models\Withdraw');
+        return $this->belongsTo('App\Models\Bank');
     }
 }

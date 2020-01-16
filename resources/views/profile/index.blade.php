@@ -258,39 +258,61 @@
                 <div id="balance" class="container tab-pane fade"><br>
                     <div class="row">
                         <div class="col-md-6">
-                            <form class="form-horizontal" id="formBalance">
-                                {{ csrf_field() }}
-                                <div class="form-group">
-                                    <label class="col-sm-12 control-label">Nominal</label>
+                            <div class="row">
+                                <form class="form-horizontal" id="formBalance">
+                                    {{ csrf_field() }}
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Nominal</label>
 
-                                    <div class="col-sm-12">
-                                        <input type="number" id="nominal" name="nominal" class="form-control" placeholder="Masukkan Nominal">
-                                        <span class="help-block"></span>
+                                        <div class="col-sm-12">
+                                            <input type="number" id="nominal" name="nominal" class="form-control" placeholder="Masukkan Nominal">
+                                            <span class="help-block"></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-12 control-label">Tanggal Transfer</label>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Tanggal Transfer</label>
 
-                                    <div class="col-sm-12">
-                                        <input type="date" id="transfer_date" name="transfer_date" class="form-control" placeholder="Masukkan Tanggal Transfer">
-                                        <span class="help-block"></span>
+                                        <div class="col-sm-12">
+                                            <input type="date" id="transfer_date" name="transfer_date" class="form-control" placeholder="Masukkan Tanggal Transfer">
+                                            <span class="help-block"></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-12 control-label">Bukti Transfer</label>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Bukti Transfer</label>
 
-                                    <div class="col-sm-12">
-                                        <input type="file" class="form-control" id="proof" name="proof">
+                                        <div class="col-sm-12">
+                                            <input type="file" class="form-control" id="proof" name="proof">
 
-                                        <span class="help-block"></span>
+                                            <span class="help-block"></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-3 col-sm-9">
-                                        <button type="submit" class="btn btn-danger"><i class="fa fa-save"></i> Simpan</button>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-3 col-sm-9">
+                                            <button type="submit" class="btn btn-danger"><i class="fa fa-save"></i> Simpan</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
+                            <div class="row">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Bank</th>
+                                            <th>Nomor Rekening</th>
+                                            <th>Nama Pemilik</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($bank as $item)
+                                            <tr>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->number }}</td>
+                                                <td>{{ $item->owner }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <table id="table_balance" class="table table-striped">

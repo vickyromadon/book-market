@@ -10,6 +10,7 @@
     <title>{{ env('APP_NAME') }}</title>
     <link href="{{ asset('/templates/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/templates/css/modern-business.css') }}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -24,6 +25,11 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     @if( Auth::user() )
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <b style="color:red;"><i class="fa fa-money"></i> Rp. {{ number_format(Auth::user()->balance) }}</b>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('store.profile.index') }}">Profile</a>
                     </li>
@@ -67,9 +73,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#location">Lokasi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#balance">Saldo</a>
                     </li>
                 </ul>
 
@@ -338,8 +341,6 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-                    <div id="balance" class="container tab-pane fade"><br>
                     </div>
                 </div>
             </div>
