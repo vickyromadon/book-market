@@ -225,6 +225,11 @@
                             <i class="fa fa-credit-card"></i> <span>Voucher</span>
                         </a>
                     </li>
+                    <li class="{{(Request::segment(2) == 'payment') ? "active" : ""}}">
+                        <a href="{{ route('admin.payment.index') }}">
+                            <i class="fa fa-bar-chart"></i> <span>Histori Transaksi</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

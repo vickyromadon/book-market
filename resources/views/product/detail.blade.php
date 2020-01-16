@@ -74,6 +74,12 @@
                                 <li>
                                     <a href="#">Harga</a>
                                 </li>
+                                <li>
+                                    <a href="#">Melihat</a>
+                                </li>
+                                <li>
+                                    <a href="#">Terjual</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-lg-8">
@@ -93,6 +99,12 @@
                                 <li>
                                     : Rp. {{ number_format($product->price) }}
                                 </li>
+                                <li>
+                                    : {{ $product->view }}
+                                </li>
+                                <li>
+                                    : {{ $product->sold }}
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -100,12 +112,17 @@
             </div>
 
             @if( Auth::user() )
-            <hr>
-            <button id="btnCart" class="btn btn-warning col-lg-12">
-                <i class="fa fa-cart-plus"></i>
-                Tambah Keranjang
-            </button>
+                @if ( $product->quantity > 0 )
+                    <hr>
+                    <button id="btnCart" class="btn btn-warning col-lg-12">
+                        <i class="fa fa-cart-plus"></i>
+                        Tambah Keranjang
+                    </button>
+                @else
+                    <span class="badge badge-danger">Produk Tidak Tersedia</span>
+                @endif
             @endif
+
         </div>
     </div>
 

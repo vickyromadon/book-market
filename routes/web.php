@@ -243,5 +243,11 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
         Route::resource('bank',                 'BankController', ['only' => [
             'update', 'destroy',
         ]]);
+
+        // payment
+        Route::match(['get', 'post'], 'payment',   'PaymentController@index')->name('payment.index');
+        Route::resource('payment',                 'PaymentController', ['only' => [
+            'show'
+        ]]);
     });
 });

@@ -34,8 +34,12 @@ class ProductController extends Controller
 
     public function detail($id)
     {
+        $product        = Product::find($id);
+        $product->view  += 1;
+        $product->save();
+
         return $this->view([
-            'product' => Product::find($id),
+            'product' => $product,
         ]);
     }
 }
