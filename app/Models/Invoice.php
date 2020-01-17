@@ -44,4 +44,9 @@ class Invoice extends Model
     {
         return $this->belongsTo('App\Models\Voucher');
     }
+
+    public function rating()
+    {
+        return $this->hasOne('App\Models\Rating');
+    }
 }

@@ -12,6 +12,7 @@ use App\Models\District;
 use App\Models\SubDistrict;
 use App\Models\Location;
 use App\Models\Payment;
+use App\Models\Rating;
 use App\Models\UserVoucher;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
@@ -258,6 +259,29 @@ class InvoiceController extends Controller
                 'message'  => 'Berhasil Konfirmasi'
             ]);
         }
+    }
+
+    public function rating(Request $request){
+        $invoice = Invoice::find($request->invoice_id);
+
+        $rating             = new Rating();
+        $rating->user_id    = Auth::user()->id;
+        $rating->store_id   = $invoice->store_id;
+        $rating->invoice_id = $invoice->id;
+        $rating->rate       = $request->rate;
+
+        if (!$rating->save()) {
+            return response()->json([
+                'success'   => false,
+                'message'   => 'Gagal Menambahkan Rating'
+            ]);
+        } else {
+            return response()->json([
+                'success'  => true,
+                'message'  => 'Berhasil Menambahkan Rating'
+            ]);
+        }
+
     }
 
     public function useVoucher(Request $request){

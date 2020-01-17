@@ -288,7 +288,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <h5>
+                            <h5> 
                                 <b>Nama</b>
                             </h5>
                         </div>

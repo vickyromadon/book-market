@@ -73,4 +73,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Withdraw');
     }
+
+    public function ratings()
+    {
+        return $this->hasMany('App\Models\Rating');
+    }
 }

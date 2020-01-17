@@ -34,4 +34,9 @@ class Store extends Model
     {
         return $this->hasMany('App\Models\Invoice');
     }
+
+    public function ratings()
+    {
+        return $this->hasMany('App\Models\Rating');
+    }
 }

@@ -50,6 +50,9 @@
                         </div>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('book-store.index') }}" class="nav-link">Toko</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('message.index') }}" class="nav-link">Kontak</a>
                     </li>
 

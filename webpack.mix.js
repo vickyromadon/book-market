@@ -23,4 +23,6 @@ mix
     .copy('node_modules/datatables.net/js/jquery.dataTables.min.js', 'public/js/jquery.dataTables.min.js') // JS > datatables.net
     .copy('node_modules/datatables.net-bs/js/dataTables.bootstrap.min.js', 'public/js/dataTables.bootstrap.min.js') // JS > datatables.net-bs
     .copy('node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css', 'public/css/dataTables.bootstrap.min.css') // CSS > datatables.net-bs
-    .copy('node_modules/font-awesome/css/font-awesome.min.css', 'public/css/font-awesome.min.css'); // CSS > font-awesome
+    .copy('node_modules/font-awesome/css/font-awesome.min.css', 'public/css/font-awesome.min.css') // CSS > font-awesome
+    .copy('node_modules/jquery-bar-rating/dist/themes/fontawesome-stars.css', 'public/css/fontawesome-stars.css')
+    .copy('node_modules/jquery-bar-rating/dist/jquery.barrating.min.js', 'public/js/jquery.barrating.min.js'); // JS > jquery-bar-rating

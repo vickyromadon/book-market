@@ -8,5 +8,7 @@
     "/js/jquery.dataTables.min.js": "/js/jquery.dataTables.min.js",
     "/js/dataTables.bootstrap.min.js": "/js/dataTables.bootstrap.min.js",
     "/css/dataTables.bootstrap.min.css": "/css/dataTables.bootstrap.min.css",
-    "/css/font-awesome.min.css": "/css/font-awesome.min.css"
+    "/css/font-awesome.min.css": "/css/font-awesome.min.css",
+    "/css/fontawesome-stars.css": "/css/fontawesome-stars.css",
+    "/js/jquery.barrating.min.js": "/js/jquery.barrating.min.js"
 }

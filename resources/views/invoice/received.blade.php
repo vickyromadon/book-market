@@ -149,4 +149,135 @@
             </div>
         </div>
     </div>
+
+    @if ($invoice->rating == null)
+        <div class="row">
+            <div class="col-md-12">
+                <button id="btnRating" class="btn btn-warning pull-right">
+                    <i class="fa fa-star"></i>
+                    Berikan Rating
+                </button>
+            </div>
+        </div>
+    @endif
+
+    <!-- confirm shipped -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalRating">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="#" method="#" id="formRating">
+                    <input type="hidden" name="id" value="{{ $invoice->id }}">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Berikan Rating</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            {{ csrf_field() }}
+                            <input type="hidden" id="invoice_id" name="invoice_id" value="{{ $invoice->id }}">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <select id="rate" name="rate" class="form-control">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+                            Tidak
+                        </button>
+                        <button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i>">
+                            Ya
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ mix('/css/fontawesome-stars.css') }}">
+@endsection
+
+@section('js')
+    <script src="{{ asset('/js/jquery.barrating.min.js') }}"></script>
+	<script>
+        jQuery(document).ready(function($){
+            $('#rate').barrating({
+                theme: 'fontawesome-stars'
+            });
+
+            // Rating
+            $('#btnRating').click(function () {
+                url = '{{ route("invoice.rating") }}';
+                $('#modalRating').modal('show');
+            });
+
+            $('#formRating').submit(function (event) {
+                event.preventDefault();
+
+                $('#modalRating button[type=submit]').button('loading');
+                var _data = $("#formRating").serialize();
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: _data,
+                    dataType: 'json',
+                    cache: false,
+
+                    success: function (response) {
+                        if (response.success) {
+                            swal({
+                                title: "Sukses",
+                                text: response.message,
+                                icon: "success",
+                            });
+
+                            setTimeout(function () {
+    	                        location.reload();
+    	                    }, 1000);
+                        } else {
+                            swal({
+                                title: "Gagal",
+                                text: response.message,
+                                icon: "error",
+                            });
+                        }
+                        $('#modalRating button[type=submit]').button('reset');
+                        $('#formRating')[0].reset();
+                    },
+                    error: function(response){
+                        if (response.status === 400 || response.status === 422) {
+                            // Bad Client Request
+                            swal({
+                                title: "Gagal",
+                                text: response.responseJSON.message,
+                                icon: "error",
+                            });
+                        } else {
+                            swal({
+                                title: "Gagal",
+                                text: "Whoops, looks like something went wrong.",
+                                icon: "error",
+                            });
+                        }
+
+                        $('#formRating button[type=submit]').button('reset');
+                    }
+                });
+            });
+        });
+    </script>
+@endsection
+

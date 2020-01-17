@@ -28,6 +28,10 @@ Route::get('product/category/{id}',     'ProductController@category')->name('pro
 Route::get('product/level/{id}',        'ProductController@level')->name('product.level');
 Route::get('product/detail/{id}',       'ProductController@detail')->name('product.detail');
 
+// store
+Route::get('book-store',             'BookStoreController@index')->name('book-store.index');
+Route::get('book-store/detail/{id}', 'BookStoreController@detail')->name('book-store.detail');
+
 // message
 Route::match(['get', 'post'], 'message',   'MessageController@index')->name('message.index');
 
@@ -76,6 +80,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('invoice/cancel',                           'InvoiceController@cancel')->name('invoice.cancel');
     Route::post('invoice/confirm-shipped',                  'InvoiceController@confirmShipped')->name('invoice.confirm-shipped');
     Route::post('invoice/use-voucher',                      'InvoiceController@useVoucher')->name('invoice.use-voucher');
+    Route::post('invoice/rating',                           'InvoiceController@rating')->name('invoice.rating');
 });
 
 Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
