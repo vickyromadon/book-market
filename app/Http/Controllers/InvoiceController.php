@@ -294,7 +294,7 @@ class InvoiceController extends Controller
 
         $voucher    = $userVoucher->voucher->discount;
         $subtotal   = $invoice->subtotal;
-        $discount   = $subtotal - ($subtotal * ($voucher/100));
+        $discount   = $subtotal * ($voucher/100);
 
         $invoice->voucher_id    = $userVoucher->voucher->id;
         $invoice->discount      = $discount;
