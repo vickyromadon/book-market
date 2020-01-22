@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -24,6 +26,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return $this->view();
+        $product = Product::count();
+        $user = User::all();
+        $totalMember = 0;
+        $totalSeller = 0;
+
+        foreach ($user as $item) {
+            if ($item->roles[0]->name == 'store') {
+                $totalSeller += 1;
+            } elseif($item->roles[0]->name == 'member') {
+                $totalMember += 1;
+            }
+        }
+
+        return $this->view([
+            'member' => $totalMember,
+            'seller' => $totalSeller,
+            'product' => $product
+        ]);
     }
 }

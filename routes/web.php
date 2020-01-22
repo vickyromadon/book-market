@@ -254,5 +254,11 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
         Route::resource('payment',                 'PaymentController', ['only' => [
             'show'
         ]]);
+
+        // management-store
+        Route::match(['get', 'post'], 'management-store',   'ManagementStoreController@index')->name('management-store.index');
+
+        // management-member
+        Route::match(['get', 'post'], 'management-member',   'ManagementMemberController@index')->name('management-member.index');
     });
 });

@@ -135,6 +135,23 @@
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
+                    <li class="treeview {{ (Request::segment(2) == 'management-store') ? "active" : "" }} {{ (Request::segment(2) == 'management-member') ? "active" : ""}}">
+                        <a href="#">
+                            <i class="fa fa-users"></i> <span>Pengelola Pengguna</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="{{ (Request::segment(2) == 'management-store') ? "active" : "" }}">
+                                <a href="{{ route('admin.management-store.index') }}"><i class="fa fa-circle-o"></i> Penjual</a>
+                            </li>
+                            <li class="{{ (Request::segment(2) == 'management-member') ? "active" : "" }}">
+                                <a href="{{ route('admin.management-member.index') }}"><i class="fa fa-circle-o"></i> Pembeli</a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="treeview {{ (Request::segment(2) == 'province') ? "active" : "" }} {{ (Request::segment(2) == 'district') ? "active" : "" }} {{ (Request::segment(2) == 'sub-district') ? "active" : ""}}">
                         <a href="#">
                             <i class="fa fa-map"></i> <span>Pengelola Lokasi</span>
