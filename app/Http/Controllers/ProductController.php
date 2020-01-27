@@ -9,10 +9,12 @@ use App\Models\Level;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->get('search');
+        $book = Product::where('title', 'LIKE', '%' . $search . '%')->where('status', '=', 'publish')->orderBy('created_at', 'desc')->paginate(12);
         return $this->view([
-            'product' => Product::where('status', '=', 'publish')->orderBy('created_at', 'desc')->paginate(12)
+            'product' => $book
         ]);
     }
 

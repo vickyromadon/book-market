@@ -15,6 +15,18 @@
 
 @section('content')
     <div class="row">
+        <div class="col-md-12">
+            <form action="{{ route('product.index') }}">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <input type="text" name="search" class="form-control" placeholder="Masukkan Sesuatu">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
         @for ($i = 0; $i < count($product); $i++)
             <div class="col-lg-3 portfolio-item">
                 <div class="card h-100">
