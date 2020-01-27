@@ -57,7 +57,7 @@
             <div class="col-lg-3 mb-4">
                 <div class="list-group">
                     <a href="{{ route('store.index') }}" class="list-group-item {{(Request::segment(2) == '') ? "active" : ""}}"><i class="fa fa-dashboard"></i> Dashboard</a>
-                    @if ( $checkStore != null )
+                    @if ( $checkStore != null AND Auth::user()->store->location != null )
                         <a href="{{ route('store.bank.index') }}" class="list-group-item {{(Request::segment(2) == 'bank') ? "active" : ""}}"><i class="fa fa-bank"></i> Bank</a>
                         <a href="{{ route('store.withdraw.index') }}" class="list-group-item {{(Request::segment(2) == 'withdraw') ? "active" : ""}}"><i class="fa fa-dollar"></i> Penarikan Saldo</a>
                         <a href="{{ route('store.product.index') }}" class="list-group-item {{(Request::segment(2) == 'product') ? "active" : ""}}"><i class="fa fa-cubes"></i> Produk</a>
@@ -65,6 +65,7 @@
                         <a href="{{ route('store.order-shipped.index') }}" class="list-group-item {{(Request::segment(2) == 'order-shipped') ? "active" : ""}}"><i class="fa fa-car"></i> Pesanan Dikirim</a>
                         <a href="{{ route('store.order-declined.index') }}" class="list-group-item {{(Request::segment(2) == 'order-declined') ? "active" : ""}}"><i class="fa fa-times-circle"></i> Pesanan Ditolak</a>
                         <a href="{{ route('store.order-received.index') }}" class="list-group-item {{(Request::segment(2) == 'order-received') ? "active" : ""}}"><i class="fa fa-truck"></i> Pesanan Diterima</a>
+                        <a href="{{ route('store.payment.index') }}" class="list-group-item {{(Request::segment(2) == 'payment') ? "active" : ""}}"><i class="fa fa-money"></i> Histori Pembayaran</a>
                     @endif
                 </div>
             </div>

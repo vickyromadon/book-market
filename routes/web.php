@@ -141,6 +141,12 @@ Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
         Route::resource('withdraw',                 'WithdrawController', ['only' => [
             'update', 'destroy',
         ]]);
+
+        // payment
+        Route::match(['get', 'post'], 'payment',   'PaymentController@index')->name('payment.index');
+        Route::resource('payment',                 'PaymentController', ['only' => [
+            'show'
+        ]]);
     });
 });
 
@@ -257,8 +263,12 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
 
         // management-store
         Route::match(['get', 'post'], 'management-store',   'ManagementStoreController@index')->name('management-store.index');
+        Route::post('management-store/active/{id}',              'ManagementStoreController@active')->name('management-store.active');
+        Route::post('management-store/block/{id}',               'ManagementStoreController@block')->name('management-store.block');
 
         // management-member
         Route::match(['get', 'post'], 'management-member',   'ManagementMemberController@index')->name('management-member.index');
+        Route::post('management-member/active/{id}',              'ManagementMemberController@active')->name('management-member.active');
+        Route::post('management-member/block/{id}',               'ManagementMemberController@block')->name('management-member.block');
     });
 });

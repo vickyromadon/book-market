@@ -62,10 +62,15 @@ class LoginController extends Controller
         ];
 
         if (Auth::guard('web')->attempt($credential, $request->member)) {
-            if (Auth::user()->roles[0]->name == 'member') {
-                return redirect()->intended(route('index'));
+            if (Auth::user()->status == 'block') {
+                Auth::guard('web')->logout();
+                abort(403, 'Akun Diblokir.');
             } else {
-                return redirect()->intended(route('store.index'));
+                if (Auth::user()->roles[0]->name == 'member') {
+                    return redirect()->intended(route('index'));
+                } else {
+                    return redirect()->intended(route('store.index'));
+                }
             }
         } else {
             $validator->after(function ($validator) {

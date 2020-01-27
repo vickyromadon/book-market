@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
@@ -30,6 +31,7 @@ class HomeController extends Controller
         $user = User::all();
         $totalMember = 0;
         $totalSeller = 0;
+        $donation = Donation::where('status', 'approve')->count();
 
         foreach ($user as $item) {
             if ($item->roles[0]->name == 'store') {
@@ -42,7 +44,8 @@ class HomeController extends Controller
         return $this->view([
             'member' => $totalMember,
             'seller' => $totalSeller,
-            'product' => $product
+            'product' => $product,
+            'donation' => $donation
         ]);
     }
 }
