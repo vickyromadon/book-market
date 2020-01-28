@@ -38,7 +38,7 @@
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ $item->phone }}</td>
                                                 <td>{{ $item->balance }}</td>
-                                                <td>{{ $item->store->name }}</td>
+                                                <td>{{ $item->store == null ? "-" : $item->store->name }}</td>
                                                 <td>
                                                     @if ($item->status == 'active')
                                                         Aktif
