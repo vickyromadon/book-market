@@ -30,32 +30,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $item)
-                                    @if ($item->roles[0]->name != "administrator" && $item->roles[0]->name != "store")
-                                        <tr>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->email }}</td>
-                                            <td>{{ $item->phone }}</td>
-                                            <td>{{ $item->balance }}</td>
-                                            <td>{{ $item->point }}</td>
-                                            <td>
-                                                @if ($item->status == 'active')
-                                                    Aktif
-                                                @else
-                                                    Blok
-                                                @endif
-                                            </td>
-                                            <td>{{ $item->created_at }}</td>
-                                            <td>
-                                                @if ($item->status == 'active')
-                                                    <a href="#" data-userid="{{ $item->id }}" class="block-btn btn btn-xs btn-danger"><i class="fa fa-close"></i></a>
-                                                @else
-                                                    <a href="#" data-userid="{{ $item->id }}" class="active-btn btn btn-xs btn-primary"><i class="fa fa-check"></i></a>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @endforeach
+                                @if (count($data) > 0)
+                                    @foreach ($data as $item)
+                                        @if ($item->roles[0]->name != "administrator" && $item->roles[0]->name != "store")
+                                            <tr>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->email }}</td>
+                                                <td>{{ $item->phone }}</td>
+                                                <td>{{ $item->balance }}</td>
+                                                <td>{{ $item->point }}</td>
+                                                <td>
+                                                    @if ($item->status == 'active')
+                                                        Aktif
+                                                    @else
+                                                        Blok
+                                                    @endif
+                                                </td>
+                                                <td>{{ $item->created_at }}</td>
+                                                <td>
+                                                    @if ($item->status == 'active')
+                                                        <a href="#" data-userid="{{ $item->id }}" class="block-btn btn btn-xs btn-danger"><i class="fa fa-close"></i></a>
+                                                    @else
+                                                        <a href="#" data-userid="{{ $item->id }}" class="active-btn btn btn-xs btn-primary"><i class="fa fa-check"></i></a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
