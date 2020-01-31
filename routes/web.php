@@ -86,7 +86,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::prefix('store')->namespace('Store')->name('store.')->group(function () {
     Route::group(['middleware' => ['auth']], function () {
         // home
-        Route::get('/', 'HomeController@index')->name('index');
+        Route::match(['get', 'post'], '/', 'HomeController@index')->name('index');
 
         // profile
         Route::get('profile',           'ProfileController@index')->name('profile.index');
