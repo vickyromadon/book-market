@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Donation;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
@@ -45,7 +46,13 @@ class HomeController extends Controller
             'member' => $totalMember,
             'seller' => $totalSeller,
             'product' => $product,
-            'donation' => $donation
+            'donation' => $donation,
+            'trx_pending' => Invoice::where('status', 'pending')->count(),
+            'trx_cancel' => Invoice::where('status', 'cancel')->count(),
+            'trx_reject' => Invoice::where('status', 'reject')->count(),
+            'trx_payment' => Invoice::where('status', 'payment')->count(),
+            'trx_approve' => Invoice::where('status', 'approve')->count(),
+            'trx_done' => Invoice::where('status', 'done')->count(),
         ]);
     }
 }

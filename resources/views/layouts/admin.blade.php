@@ -247,6 +247,11 @@
                             <i class="fa fa-bar-chart"></i> <span>Histori Transaksi</span>
                         </a>
                     </li>
+                    <li class="{{(Request::segment(2) == 'invoice') ? "active" : ""}}">
+                        <a href="{{ route('admin.invoice.index') }}">
+                            <i class="fa fa-dollar"></i> <span>Histori Penjualan</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

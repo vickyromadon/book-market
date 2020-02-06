@@ -2,11 +2,11 @@
 
 @section('header')
     <h1>
-        Detail History Transaksi
+        Detail Histori Transaksi
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li>History Transaksi</li>
+        <li>Histori Transaksi</li>
         <li class="active">Detail</li>
     </ol>
 @endsection
@@ -288,7 +288,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <h5> 
+                            <h5>
                                 <b>Nama</b>
                             </h5>
                         </div>

@@ -68,4 +68,91 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="small-box bg-fuchsia">
+                <div class="inner">
+                    <h3>{{ $trx_pending }}</h3>
+
+                    <p>Transaksi</p>
+                    <p>Pending</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-dollar"></i>
+                </div>
+                <a href="{{ route('admin.invoice.index') }}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="small-box bg-olive">
+                <div class="inner">
+                    <h3>{{ $trx_payment }}</h3>
+
+                    <p>Transaksi</p>
+                    <p>Menunggu Konfirmasi</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-dollar"></i>
+                </div>
+                <a href="{{ route('admin.invoice.index') }}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="small-box bg-gray">
+                <div class="inner">
+                    <h3>{{ $trx_reject }}</h3>
+
+                    <p>Transaksi</p>
+                    <p>Ditolak</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-dollar"></i>
+                </div>
+                <a href="{{ route('admin.invoice.index') }}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="small-box bg-teal">
+                <div class="inner">
+                    <h3>{{ $trx_cancel }}</h3>
+
+                    <p>Transaksi</p>
+                    <p>Dibatalkan</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-dollar"></i>
+                </div>
+                <a href="{{ route('admin.invoice.index') }}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="small-box bg-lime">
+                <div class="inner">
+                    <h3>{{ $trx_approve }}</h3>
+
+                    <p>Transaksi</p>
+                    <p>Dalam Pengiriman</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-dollar"></i>
+                </div>
+                <a href="{{ route('admin.invoice.index') }}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="small-box bg-maroon">
+                <div class="inner">
+                    <h3>{{ $trx_done }}</h3>
+
+                    <p>Transaksi</p>
+                    <p>Sudah Diterima</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-dollar"></i>
+                </div>
+                <a href="{{ route('admin.invoice.index') }}" class="small-box-footer">Info Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
 @endsection

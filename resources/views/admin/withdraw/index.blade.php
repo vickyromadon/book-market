@@ -19,6 +19,8 @@
                         <tr>
                             <th>No</th>
                             <th>Nominal</th>
+                            <th>Potongan Pelayanan</th>
+                            <th>Total</th>
                             <th>Status</th>
                             <th>Tanggal di Buat</th>
                             <th>Aksi</th>
@@ -57,6 +59,14 @@
                     },
                     {
                         "data": "nominal",
+                        "orderable": true,
+                    },
+                    {
+                        "data": "discount",
+                        "orderable": true,
+                    },
+                    {
+                        "data": "total",
                         "orderable": true,
                     },
                     {

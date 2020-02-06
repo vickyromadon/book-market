@@ -120,7 +120,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h5>
-                                <b>Jumlah Saldo Sekarang</b>
+                                <b>Saldo Sekarang</b>
                             </h5>
                         </div>
                         <div class="col-md-6">
@@ -132,12 +132,36 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h5>
-                                <b>Jumlah Penarikan Saldo</b>
+                                <b>Penarikan Saldo</b>
                             </h5>
                         </div>
                         <div class="col-md-6">
                             <h5>
                                 Rp. {{ number_format($data->nominal) }}
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>
+                                <b>Potongan Pelayanan</b>
+                            </h5>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>
+                                Rp. {{ number_format($data->discount) }}
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>
+                                <b>Jumlah Di Kirim</b>
+                            </h5>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>
+                                Rp. {{ number_format($data->total) }}
                             </h5>
                         </div>
                     </div>

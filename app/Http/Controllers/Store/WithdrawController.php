@@ -25,6 +25,8 @@ class WithdrawController extends Controller
             $column = [
                 "bank",
                 "nominal",
+                "discount",
+                "total",
                 "status",
                 "created_at"
             ];
@@ -33,6 +35,8 @@ class WithdrawController extends Controller
                 ->where('user_id', '=', Auth::user()->id)
                 ->where(function ($q) use ($search) {
                     $q->where("nominal", 'LIKE', "%$search%")
+                        ->orWhere("discount", 'LIKE', "%$search%")
+                        ->orWhere("total", 'LIKE', "%$search%")
                         ->orWhere("status", 'LIKE', "%$search%");
                 })
                 ->count();
@@ -41,6 +45,8 @@ class WithdrawController extends Controller
                 ->where('user_id', '=', Auth::user()->id)
                 ->where(function ($q) use ($search) {
                     $q->where("nominal", 'LIKE', "%$search%")
+                        ->orWhere("discount", 'LIKE', "%$search%")
+                        ->orWhere("total", 'LIKE', "%$search%")
                         ->orWhere("status", 'LIKE', "%$search%");
                 })
                 ->orderBy($column[$request->order[0]['column'] - 1], $request->order[0]['dir'])
@@ -70,8 +76,13 @@ class WithdrawController extends Controller
             'bank_id'   => 'required|numeric',
         ]);
 
+        $nominal = $request->nominal;
+        $discount = $nominal * (10/100);
+
         $withdraw           = new Withdraw();
-        $withdraw->nominal  = $request->nominal;
+        $withdraw->nominal  = $nominal;
+        $withdraw->discount = $discount;
+        $withdraw->total    = $nominal - $discount;
         $withdraw->bank_id  = $request->bank_id;
         $withdraw->user_id  = Auth::user()->id;
         $withdraw->status   = "pending";

@@ -23,17 +23,23 @@ class WithdrawController extends Controller
 
             $column = [
                 "nominal",
+                "discount",
+                "total",
                 "status",
                 "created_at"
             ];
 
             $total = Withdraw::with(['user', 'bank'])
                 ->where("nominal", 'LIKE', "%$search%")
+                ->where("discount", 'LIKE', "%$search%")
+                ->where("total", 'LIKE', "%$search%")
                 ->where("status", 'LIKE', "%$search%")
                 ->count();
 
             $data = Withdraw::with(['user', 'bank'])
                 ->where("nominal", 'LIKE', "%$search%")
+                ->where("discount", 'LIKE', "%$search%")
+                ->where("total", 'LIKE', "%$search%")
                 ->where("status", 'LIKE', "%$search%")
                 ->orderBy($column[$request->order[0]['column'] - 1], $request->order[0]['dir'])
                 ->skip($start)

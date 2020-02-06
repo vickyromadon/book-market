@@ -270,5 +270,11 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
         Route::match(['get', 'post'], 'management-member',   'ManagementMemberController@index')->name('management-member.index');
         Route::post('management-member/active/{id}',              'ManagementMemberController@active')->name('management-member.active');
         Route::post('management-member/block/{id}',               'ManagementMemberController@block')->name('management-member.block');
+
+        // invoice
+        Route::match(['get', 'post'], 'invoice',   'InvoiceController@index')->name('invoice.index');
+        Route::resource('invoice',                 'InvoiceController', ['only' => [
+            'show'
+        ]]);
     });
 });

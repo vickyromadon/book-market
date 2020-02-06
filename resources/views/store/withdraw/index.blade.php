@@ -28,6 +28,8 @@
                                     <th class="center">No</th>
                                     <th class="text-center">Bank</th>
                                     <th class="text-center">Nominal</th>
+                                    <th class="text-center">Potongan Pelayanan</th>
+                                    <th class="text-center">Total</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Tanggal di Buat</th>
                                     <th class="center text-center">Aksi</th>
@@ -161,6 +163,14 @@
                     },
                     {
                         "data": "nominal",
+                        "orderable": true,
+                    },
+                    {
+                        "data": "discount",
+                        "orderable": true,
+                    },
+                    {
+                        "data": "total",
                         "orderable": true,
                     },
                     {
