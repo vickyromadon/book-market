@@ -2,7 +2,7 @@
 
 @section('header')
     <h1 class="mt-4 mb-3">Transaksi
-        <small>Ditolak</small>
+        <small>Diterima</small>
     </h1>
 
     <ol class="breadcrumb">
@@ -10,7 +10,7 @@
             <a href="{{ route('index') }}">Beranda</a>
         </li>
         <li class="breadcrumb-item">Transaksi</li>
-        <li class="breadcrumb-item active">Ditolak</li>
+        <li class="breadcrumb-item active">Diterima</li>
     </ol>
 @endsection
 
@@ -161,7 +161,7 @@
         </div>
     @endif
 
-    <!-- confirm shipped -->
+    <!-- rating -->
     <div class="modal fade" tabindex="-1" role="dialog" id="modalRating">
         <div class="modal-dialog">
             <div class="modal-content">
