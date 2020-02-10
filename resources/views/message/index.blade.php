@@ -44,6 +44,7 @@
                             <option value="">-- Pilih Salah Satu --</option>
                             <option value="keluhan">Keluhan</option>
                             <option value="laporan">Laporan</option>
+                            <option value="reset password">Permintaan Reset Password</option>
                         </select>
 
                         <span class="help-block"></span>

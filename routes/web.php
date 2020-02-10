@@ -262,14 +262,16 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
         ]]);
 
         // management-store
-        Route::match(['get', 'post'], 'management-store',   'ManagementStoreController@index')->name('management-store.index');
-        Route::post('management-store/active/{id}',              'ManagementStoreController@active')->name('management-store.active');
-        Route::post('management-store/block/{id}',               'ManagementStoreController@block')->name('management-store.block');
+        Route::match(['get', 'post'], 'management-store',       'ManagementStoreController@index')->name('management-store.index');
+        Route::post('management-store/active/{id}',             'ManagementStoreController@active')->name('management-store.active');
+        Route::post('management-store/block/{id}',              'ManagementStoreController@block')->name('management-store.block');
+        Route::post('management-store/reset-password/{id}',     'ManagementStoreController@resetPassword')->name('management-store.reset-password');
 
         // management-member
-        Route::match(['get', 'post'], 'management-member',   'ManagementMemberController@index')->name('management-member.index');
-        Route::post('management-member/active/{id}',              'ManagementMemberController@active')->name('management-member.active');
-        Route::post('management-member/block/{id}',               'ManagementMemberController@block')->name('management-member.block');
+        Route::match(['get', 'post'], 'management-member',      'ManagementMemberController@index')->name('management-member.index');
+        Route::post('management-member/active/{id}',            'ManagementMemberController@active')->name('management-member.active');
+        Route::post('management-member/block/{id}',             'ManagementMemberController@block')->name('management-member.block');
+        Route::post('management-member/reset-password/{id}',  'ManagementMemberController@resetPassword')->name('management-member.reset-password');
 
         // invoice
         Route::match(['get', 'post'], 'invoice',   'InvoiceController@index')->name('invoice.index');

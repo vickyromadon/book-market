@@ -53,6 +53,7 @@
                                                     @else
                                                         <a href="#" data-userid="{{ $item->id }}" class="active-btn btn btn-xs btn-primary"><i class="fa fa-check"></i></a>
                                                     @endif
+                                                    <a href="#" data-userid="{{ $item->id }}" class="reset-btn btn btn-xs btn-warning"><i class="fa fa-refresh"></i></a>
                                                 </td>
                                             </tr>
                                         @endif
@@ -108,6 +109,34 @@
 
                     <div class="modal-body">
                         <p id="del-success">Anda yakin ingin aktifkan pengguna ini ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+                            Tidak
+                        </button>
+                        <button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i>">
+                            Ya
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- reset-password -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalResetPassword">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('admin.management-member.reset-password', ['id' => '#']) }}" method="post" id="formResetPassword">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Reset Password Pengguna</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <p id="del-success">Anda yakin ingin Reset Password pengguna ini ?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
@@ -286,6 +315,85 @@
                         }
 
                         $('#formActive button[type=submit]').button('reset');
+                    }
+                });
+            });
+
+            // Reset Password
+            $('#data_table').on('click', '.reset-btn' , function(e){
+                url = $('#formResetPassword').attr('action').replace('#', $(this).data('userid'));
+                $('#modalResetPassword').modal('show');
+            });
+
+            $('#formResetPassword').submit(function (event) {
+                event.preventDefault();
+
+                $('#modalResetPassword button[type=submit]').button('loading');
+                var _data = $("#formResetPassword").serialize();
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: _data,
+                    dataType: 'json',
+                    cache: false,
+
+                    success: function (response) {
+                        if (response.success) {
+                            $.toast({
+                                heading: 'Success',
+                                text : response.message,
+                                position : 'top-right',
+                                allowToastClose : true,
+                                showHideTransition : 'fade',
+                                icon : 'success',
+                                loader : false
+                            });
+
+                            setTimeout(function () {
+    	                        location.reload();
+    	                    }, 2000);
+                        } else {
+                            $.toast({
+                                heading: 'Error',
+                                text : response.message,
+                                position : 'top-right',
+                                allowToastClose : true,
+                                showHideTransition : 'fade',
+                                icon : 'error',
+                                loader : false
+                            });
+                        }
+                        $('#modalResetPassword button[type=submit]').button('reset');
+                        $('#formResetPassword')[0].reset();
+                    },
+                    error: function(response){
+                        if (response.status === 400 || response.status === 422) {
+                            // Bad Client Request
+                            $.toast({
+                                heading: 'Error',
+                                text : response.responseJSON.message,
+                                position : 'top-right',
+                                allowToastClose : true,
+                                showHideTransition : 'fade',
+                                icon : 'error',
+                                loader : false,
+                                hideAfter: 5000
+                            });
+                        } else {
+                            $.toast({
+                                heading: 'Error',
+                                text : "Whoops, looks like something went wrong.",
+                                position : 'top-right',
+                                allowToastClose : true,
+                                showHideTransition : 'fade',
+                                icon : 'error',
+                                loader : false,
+                                hideAfter: 5000
+                            });
+                        }
+
+                        $('#formResetPassword button[type=submit]').button('reset');
                     }
                 });
             });
