@@ -252,6 +252,11 @@
                             <i class="fa fa-dollar"></i> <span>Histori Penjualan</span>
                         </a>
                     </li>
+                    <li class="{{(Request::segment(2) == 'profit') ? "active" : ""}}">
+                        <a href="{{ route('admin.profit.index') }}">
+                            <i class="fa fa-file"></i> <span>Laporan Keuntungan</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

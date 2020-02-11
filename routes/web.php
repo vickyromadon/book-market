@@ -278,5 +278,8 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
         Route::resource('invoice',                 'InvoiceController', ['only' => [
             'show'
         ]]);
+
+        // profit
+        Route::match(['get', 'post'], 'profit',   'ProfitController@index')->name('profit.index');
     });
 });
