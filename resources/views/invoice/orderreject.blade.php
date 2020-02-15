@@ -99,6 +99,15 @@
 
     <div class="row">
         <div class="col-md-12">
+            <b>Alasan Penolakan : </b> {{ $invoice->reason }}
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-md-12">
             <div class="table-responsive">
                 <table class="table">
                     <thead>

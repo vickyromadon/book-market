@@ -62,12 +62,90 @@
                     <div class="row">
                         <div class="col-md-4">
                             <h5>
+                                <b>Gambar 1</b>
+                            </h5>
+                        </div>
+                        <div class="col-md-8">
+                            @if ($data->image_1 != null)
+                                <img src="{{ asset('storage/'.$data->image_1) }}" class="img-thumbnail" style="width:100%; height:300px;">
+                            @else
+                                <img src="{{ asset('images/book.jpg') }}" class="img-thumbnail" style="width:100%; height:300px;">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>
+                                <b>Gambar 2</b>
+                            </h5>
+                        </div>
+                        <div class="col-md-8">
+                            @if ($data->image_2 != null)
+                                <img src="{{ asset('storage/'.$data->image_2) }}" class="img-thumbnail" style="width:100%; height:300px;">
+                            @else
+                                <img src="{{ asset('images/book.jpg') }}" class="img-thumbnail" style="width:100%; height:300px;">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>
+                                <b>Gambar 3</b>
+                            </h5>
+                        </div>
+                        <div class="col-md-8">
+                            @if ($data->image_3 != null)
+                                <img src="{{ asset('storage/'.$data->image_3) }}" class="img-thumbnail" style="width:100%; height:300px;">
+                            @else
+                                <img src="{{ asset('images/book.jpg') }}" class="img-thumbnail" style="width:100%; height:300px;">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>
                                 <b>Pesan</b>
                             </h5>
                         </div>
                         <div class="col-md-8">
                             <h5>
                                 {{ $data->message }}
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>
+                                <b>Lokasi Penjemputan</b>
+                            </h5>
+                        </div>
+                        <div class="col-md-8">
+                            <h5>
+                                {{ $data->location }}
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>
+                                <b>Tanggal Penjemputan</b>
+                            </h5>
+                        </div>
+                        <div class="col-md-8">
+                            <h5>
+                                {{ $data->date }}
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>
+                                <b>Alasan</b>
+                            </h5>
+                        </div>
+                        <div class="col-md-8">
+                            <h5>
+                                {{ $data->reason }}
                             </h5>
                         </div>
                     </div>
@@ -178,6 +256,7 @@
 
                     <div class="modal-body">
                         <p id="del-success">Anda yakin ingin membatalkan Donasi Buku ini ?</p>
+                        <textarea name="reason" id="reason" class="form-control" placeholder="Masukkan Alasan Penolakan"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">

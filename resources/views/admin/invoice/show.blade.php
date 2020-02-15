@@ -105,6 +105,18 @@
                             </h5>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>
+                                <b>Alasan</b>
+                            </h5>
+                        </div>
+                        <div class="col-md-8">
+                            <h5>
+                                {{ $data->reason == null ? "-" : $data->reason }}
+                            </h5>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

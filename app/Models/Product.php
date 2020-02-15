@@ -8,7 +8,8 @@ class Product extends Model
 {
     protected $fillable = [
         'title', 'description', 'quantity', 'price',
-        'image', 'sold', 'view', 'status', 'publisher'
+        'image', 'sold', 'view', 'status', 'publisher',
+        'image_1', 'image_2', 'image_3',
     ];
 
     public function store()
@@ -29,5 +30,10 @@ class Product extends Model
     public function carts()
     {
         return $this->hasMany('App\Models\Cart');
+    }
+
+    public function album_products()
+    {
+        return $this->hasMany('App\Models\AlbumProduct');
     }
 }

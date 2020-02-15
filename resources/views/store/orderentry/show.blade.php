@@ -183,6 +183,7 @@
 
                     <div class="modal-body">
                         <p id="del-success">Anda yakin ingin menolak pembelian ini ?</p>
+                        <textarea name="reason" id="reason" placeholder="Masukkan Alasan Penolakan" required class="form-control"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">

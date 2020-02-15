@@ -81,6 +81,21 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header text-center">
+                    <h5>Alasan Penolakan</h5>
+                </div>
+                <div class="card-body">
+                    {{ $data->reason }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header text-center">
                     <h5>Produk Yang Dibeli</h5>
                 </div>
                 <div class="card-body">

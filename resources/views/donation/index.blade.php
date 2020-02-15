@@ -57,33 +57,73 @@
                             {{ csrf_field() }}
                             <input type="hidden" id="id" name="id">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Judul</label>
+                                <label class="col-sm-12 control-label">Judul</label>
 
-                                <div class="col-sm-9">
+                                <div class="col-sm-12">
                                     <input type="text" id="title" name="title" class="form-control" placeholder="Masukkan Judul">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Jumlah</label>
+                                <label class="col-sm-12 control-label">Jumlah</label>
 
-                                <div class="col-sm-9">
+                                <div class="col-sm-12">
                                     <input type="number" id="quantity" name="quantity" class="form-control" placeholder="Masukkan Jumlah" min="0">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Gambar</label>
+                                <label class="col-sm-12 control-label">Gambar</label>
 
-                                <div class="col-sm-9">
+                                <div class="col-sm-12">
                                     <input type="file" id="image" name="image" class="form-control" placeholder="Masukkan Gambar">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Pesan</label>
+                                <label class="col-sm-12 control-label">Gambar 1</label>
 
-                                <div class="col-sm-9">
+                                <div class="col-sm-12">
+                                    <input type="file" id="image_1" name="image_1" class="form-control" placeholder="Masukkan Gambar 1">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-12 control-label">Gambar 2</label>
+
+                                <div class="col-sm-12">
+                                    <input type="file" id="image_2" name="image_2" class="form-control" placeholder="Masukkan Gambar 2">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-12 control-label">Gambar 3</label>
+
+                                <div class="col-sm-12">
+                                    <input type="file" id="image_3" name="image_3" class="form-control" placeholder="Masukkan Gambar 3">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-12 control-label">Tanggal Penjemputan</label>
+
+                                <div class="col-sm-12">
+                                    <input type="date" id="date" name="date" class="form-control" placeholder="Masukkan Tanggal Penjemputan">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-12 control-label">Lokasi Penjemputan</label>
+
+                                <div class="col-sm-12">
+                                    <textarea name="location" id="location" class="form-control" placeholder="Masukkan Lokasi Penjemputan"></textarea>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-12 control-label">Pesan</label>
+
+                                <div class="col-sm-12">
                                     <textarea name="message" id="message" class="form-control" placeholder="Masukkan Pesan"></textarea>
                                     <span class="help-block"></span>
                                 </div>
@@ -157,6 +197,31 @@
                             <td id="image"><img src="#" class="img-thumbnail" style="height:40vh; width:50vh;"></td>
                         </tr>
                         <tr>
+                            <th>Gambar 1</th>
+                            <td>:</td>
+                            <td id="image_1"><img src="#" class="img-thumbnail" style="height:40vh; width:50vh;"></td>
+                        </tr>
+                        <tr>
+                            <th>Gambar 2</th>
+                            <td>:</td>
+                            <td id="image_2"><img src="#" class="img-thumbnail" style="height:40vh; width:50vh;"></td>
+                        </tr>
+                        <tr>
+                            <th>Gambar 3</th>
+                            <td>:</td>
+                            <td id="image_3"><img src="#" class="img-thumbnail" style="height:40vh; width:50vh;"></td>
+                        </tr>
+                        <tr>
+                            <th>Lokasi Penjemputan</th>
+                            <td>:</td>
+                            <td id="location"></td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal Penjemputan</th>
+                            <td>:</td>
+                            <td id="date"></td>
+                        </tr>
+                        <tr>
                             <th>Pesan</th>
                             <td>:</td>
                             <td id="message"></td>
@@ -170,6 +235,11 @@
                             <th>Status</th>
                             <td>:</td>
                             <td id="status"></td>
+                        </tr>
+                        <tr>
+                            <th>Alasan</th>
+                            <td>:</td>
+                            <td id="reason"></td>
                         </tr>
                     </table>
                 </div>
@@ -290,6 +360,8 @@
                 $('#description').val(aData.description);
                 $('#quantity').val(aData.quantity);
                 $('#message').val(aData.message);
+                $('#location').val(aData.location);
+                $('#date').val(aData.date);
 
                 $('#modalAdd').modal('show');
             });
@@ -454,8 +526,26 @@
                 } else {
                     $('#modalView #image img').attr("src", "{{ asset('images/book.jpg') }}");
                 }
+                if ( aData.image_1 != null ) {
+                    $('#modalView #image_1 img').attr("src", "{{ asset('storage/')}}" + "/" + aData.image_1);
+                } else {
+                    $('#modalView #image_1 img').attr("src", "{{ asset('images/book.jpg') }}");
+                }
+                if ( aData.image_2 != null ) {
+                    $('#modalView #image_2 img').attr("src", "{{ asset('storage/')}}" + "/" + aData.image_2);
+                } else {
+                    $('#modalView #image_2 img').attr("src", "{{ asset('images/book.jpg') }}");
+                }
+                if ( aData.image_3 != null ) {
+                    $('#modalView #image_3 img').attr("src", "{{ asset('storage/')}}" + "/" + aData.image_3);
+                } else {
+                    $('#modalView #image_3 img').attr("src", "{{ asset('images/book.jpg') }}");
+                }
                 $('#modalView #message').text(aData.message);
                 $('#modalView #quantity').text(aData.quantity);
+                $('#modalView #location').text(aData.location);
+                $('#modalView #date').text(aData.date);
+                $('#modalView #reason').text(aData.reason);
 
                 if (aData.status == 'pending') {
                     $('#modalView #status').text("Tertunda");

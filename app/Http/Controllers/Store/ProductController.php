@@ -92,6 +92,9 @@ class ProductController extends Controller
             'quantity'      => 'required|numeric',
             'price'         => 'required|numeric',
             'image'         => 'nullable|mimes:jpeg,jpg,png|max:5000',
+            'image_1'         => 'nullable|mimes:jpeg,jpg,png|max:5000',
+            'image_2'         => 'nullable|mimes:jpeg,jpg,png|max:5000',
+            'image_3'         => 'nullable|mimes:jpeg,jpg,png|max:5000',
             'category_id'   => 'required',
             'level_id'      => 'required',
             'status'        => 'required',
@@ -113,11 +116,35 @@ class ProductController extends Controller
         if ($request->image != null) {
             $product->image     = $request->file('image')->store('product/' . Auth::user()->id);
         }
+        if ($request->image_1 != null) {
+            $product->image_1     = $request->file('image_1')->store('product/' . Auth::user()->id);
+        }
+        if ($request->image_2 != null) {
+            $product->image_2     = $request->file('image_2')->store('product/' . Auth::user()->id);
+        }
+        if ($request->image_3 != null) {
+            $product->image_3     = $request->file('image_3')->store('product/' . Auth::user()->id);
+        }
 
         if (!$product->save()) {
             if ($request->hasFile('image')) {
                 $fileDelete = Product::where('image', '=', $product->image)->first();
                 Storage::delete($fileDelete->image);
+                $fileDelete->delete();
+            }
+            if ($request->hasFile('image_1')) {
+                $fileDelete = Product::where('image_1', '=', $product->image_1)->first();
+                Storage::delete($fileDelete->image_1);
+                $fileDelete->delete();
+            }
+            if ($request->hasFile('image_2')) {
+                $fileDelete = Product::where('image_2', '=', $product->image_2)->first();
+                Storage::delete($fileDelete->image_2);
+                $fileDelete->delete();
+            }
+            if ($request->hasFile('image_3')) {
+                $fileDelete = Product::where('image_3', '=', $product->image_3)->first();
+                Storage::delete($fileDelete->image_3);
                 $fileDelete->delete();
             }
 
@@ -142,6 +169,9 @@ class ProductController extends Controller
             'quantity'      => 'required|numeric',
             'price'         => 'required|numeric',
             'image'         => 'nullable|mimes:jpeg,jpg,png|max:5000',
+            'image_1'         => 'nullable|mimes:jpeg,jpg,png|max:5000',
+            'image_2'         => 'nullable|mimes:jpeg,jpg,png|max:5000',
+            'image_3'         => 'nullable|mimes:jpeg,jpg,png|max:5000',
             'category_id'   => 'required',
             'level_id'      => 'required',
             'status'        => 'required',
@@ -167,11 +197,50 @@ class ProductController extends Controller
 
             $product->image = $request->file('image')->store('product/' . Auth::user()->id);
         }
+        if ($request->image_1 != null) {
+            if ($product->image_1 != null) {
+                $picture = Product::where('image_1', '=', $product->image_1)->first();
+                Storage::delete($picture->image_1);
+            }
+
+            $product->image_1 = $request->file('image_1')->store('product/' . Auth::user()->id);
+        }
+        if ($request->image_2 != null) {
+            if ($product->image_2 != null) {
+                $picture = Product::where('image_2', '=', $product->image_2)->first();
+                Storage::delete($picture->image_2);
+            }
+
+            $product->image_2 = $request->file('image_2')->store('product/' . Auth::user()->id);
+        }
+        if ($request->image_3 != null) {
+            if ($product->image_3 != null) {
+                $picture = Product::where('image_3', '=', $product->image_3)->first();
+                Storage::delete($picture->image_3);
+            }
+
+            $product->image_3 = $request->file('image_3')->store('product/' . Auth::user()->id);
+        }
 
         if (!$product->save()) {
             if ($request->hasFile('image')) {
                 $fileDelete = Product::where('image', '=', $product->image)->first();
                 Storage::delete($fileDelete->image);
+                $fileDelete->delete();
+            }
+            if ($request->hasFile('image_1')) {
+                $fileDelete = Product::where('image_1', '=', $product->image_1)->first();
+                Storage::delete($fileDelete->image_1);
+                $fileDelete->delete();
+            }
+            if ($request->hasFile('image_2')) {
+                $fileDelete = Product::where('image_2', '=', $product->image_2)->first();
+                Storage::delete($fileDelete->image_2);
+                $fileDelete->delete();
+            }
+            if ($request->hasFile('image_3')) {
+                $fileDelete = Product::where('image_3', '=', $product->image_3)->first();
+                Storage::delete($fileDelete->image_3);
                 $fileDelete->delete();
             }
 
@@ -191,6 +260,9 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         Storage::delete($product->image);
+        Storage::delete($product->image_1);
+        Storage::delete($product->image_2);
+        Storage::delete($product->image_3);
 
         if ($product->delete()) {
             return response()->json([

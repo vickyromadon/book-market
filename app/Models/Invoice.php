@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     protected $fillable = [
-        'number', 'status', 'shipping', 'subtotal', 'total', 'discount'
+        'number', 'status', 'shipping', 'subtotal', 'total', 'discount', 'reason'
     ];
 
     public function invoice_carts()

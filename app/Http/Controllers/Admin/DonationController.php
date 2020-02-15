@@ -91,6 +91,7 @@ class DonationController extends Controller
     {
         $donation = Donation::find($request->id);
         $donation->status = "reject";
+        $donation->reason = $request->reason;
 
         if ($donation->save()) {
             return response()->json([

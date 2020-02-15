@@ -30,6 +30,32 @@
             <hr>
 
             <div class="row">
+                <div class="col-lg-4">
+                    @if ($product->image_1 != null)
+                        <img class="img-fluid rounded" src="{{ asset('storage/'. $product->image_1)}}" style="width:100%; height:200px;">
+                    @else
+                        <img class="img-fluid rounded" src="{{ asset('images/book.jpg') }}" style="width:100%; height:200px;">
+                    @endif
+                </div>
+                <div class="col-lg-4">
+                    @if ($product->image_2 != null)
+                        <img class="img-fluid rounded" src="{{ asset('storage/'. $product->image_2)}}" style="width:100%; height:200px;">
+                    @else
+                        <img class="img-fluid rounded" src="{{ asset('images/book.jpg') }}" style="width:100%; height:200px;">
+                    @endif
+                </div>
+                <div class="col-lg-4">
+                    @if ($product->image_3 != null)
+                        <img class="img-fluid rounded" src="{{ asset('storage/'. $product->image_3)}}" style="width:100%; height:200px;">
+                    @else
+                        <img class="img-fluid rounded" src="{{ asset('images/book.jpg') }}" style="width:100%; height:200px;">
+                    @endif
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="pull-left">
                         <i class="fa fa-calendar"></i>

@@ -254,7 +254,7 @@
                     </li>
                     <li class="{{(Request::segment(2) == 'profit') ? "active" : ""}}">
                         <a href="{{ route('admin.profit.index') }}">
-                            <i class="fa fa-file"></i> <span>Laporan Keuntungan</span>
+                            <i class="fa fa-file"></i> <span>Informasi Keuntungan</span>
                         </a>
                     </li>
                 </ul>

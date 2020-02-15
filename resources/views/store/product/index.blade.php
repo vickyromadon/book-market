@@ -101,6 +101,30 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-3 control-label">Gambar 1</label>
+
+                                <div class="col-sm-9">
+                                    <input type="file" id="image_1" name="image_1" class="form-control" placeholder="Masukkan Gambar 1">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Gambar 2</label>
+
+                                <div class="col-sm-9">
+                                    <input type="file" id="image_2" name="image_2" class="form-control" placeholder="Masukkan Gambar 2">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Gambar 3</label>
+
+                                <div class="col-sm-9">
+                                    <input type="file" id="image_3" name="image_3" class="form-control" placeholder="Masukkan Gambar 3">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Kategori</label>
 
                                 <div class="col-sm-9">
@@ -218,6 +242,21 @@
                             <th>Gambar</th>
                             <td>:</td>
                             <td id="image"><img src="#" class="img-thumbnail" style="height:40vh; width:50vh;"></td>
+                        </tr>
+                        <tr>
+                            <th>Gambar 1</th>
+                            <td>:</td>
+                            <td id="image_1"><img src="#" class="img-thumbnail" style="height:40vh; width:50vh;"></td>
+                        </tr>
+                        <tr>
+                            <th>Gambar 2</th>
+                            <td>:</td>
+                            <td id="image_2"><img src="#" class="img-thumbnail" style="height:40vh; width:50vh;"></td>
+                        </tr>
+                        <tr>
+                            <th>Gambar 3</th>
+                            <td>:</td>
+                            <td id="image_3"><img src="#" class="img-thumbnail" style="height:40vh; width:50vh;"></td>
                         </tr>
                         <tr>
                             <th>Deskripsi</th>
@@ -474,6 +513,24 @@
                                 $("#formAdd input[name='image']").parent().find('.help-block').css("color", "red");
                                 $("#formAdd input[name='image']").parent().parent().addClass('has-error');
                             }
+                            if(error['image_1'] != undefined){
+                                $("#formAdd input[name='image_1']").parent().find('.help-block').text(error['image_1']);
+                                $("#formAdd input[name='image_1']").parent().find('.help-block').show();
+                                $("#formAdd input[name='image_1']").parent().find('.help-block').css("color", "red");
+                                $("#formAdd input[name='image_1']").parent().parent().addClass('has-error');
+                            }
+                            if(error['image_2'] != undefined){
+                                $("#formAdd input[name='image_2']").parent().find('.help-block').text(error['image_2']);
+                                $("#formAdd input[name='image_2']").parent().find('.help-block').show();
+                                $("#formAdd input[name='image_2']").parent().find('.help-block').css("color", "red");
+                                $("#formAdd input[name='image_2']").parent().parent().addClass('has-error');
+                            }
+                            if(error['image_3'] != undefined){
+                                $("#formAdd input[name='image_3']").parent().find('.help-block').text(error['image_3']);
+                                $("#formAdd input[name='image_3']").parent().find('.help-block').show();
+                                $("#formAdd input[name='image_3']").parent().find('.help-block').css("color", "red");
+                                $("#formAdd input[name='image_3']").parent().parent().addClass('has-error');
+                            }
                         }
                         else if (response.status === 400) {
                             swal({
@@ -564,11 +621,28 @@
 
                 $('#modalView #title').text(aData.title);
                 $('#modalView #publisher').text(aData.publisher);
+
                 if ( aData.image != null ) {
                     $('#modalView #image img').attr("src", "{{ asset('storage/')}}" + "/" + aData.image);
                 } else {
                     $('#modalView #image img').attr("src", "{{ asset('images/book.jpg') }}");
                 }
+                if ( aData.image_1 != null ) {
+                    $('#modalView #image_1 img').attr("src", "{{ asset('storage/')}}" + "/" + aData.image_1);
+                } else {
+                    $('#modalView #image_1 img').attr("src", "{{ asset('images/book.jpg') }}");
+                }
+                if ( aData.image_2 != null ) {
+                    $('#modalView #image_2 img').attr("src", "{{ asset('storage/')}}" + "/" + aData.image_2);
+                } else {
+                    $('#modalView #image_2 img').attr("src", "{{ asset('images/book.jpg') }}");
+                }
+                if ( aData.image_3 != null ) {
+                    $('#modalView #image_3 img').attr("src", "{{ asset('storage/')}}" + "/" + aData.image_3);
+                } else {
+                    $('#modalView #image_3 img').attr("src", "{{ asset('images/book.jpg') }}");
+                }
+
                 $('#modalView #description').text(aData.description);
                 $('#modalView #quantity').text(aData.quantity);
                 $('#modalView #price').text(aData.price);

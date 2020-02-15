@@ -96,6 +96,7 @@ class OrderEntryController extends Controller
     {
         $invoice = Invoice::find($request->id);
         $invoice->status = "reject";
+        $invoice->reason = $request->reason;
 
         if ($invoice->save()) {
             $payment                    = new Payment();
